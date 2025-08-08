@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APPZOZ - أكثر من 1000 تطبيق للتحميل</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4, #45b7d1);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* App Cards Styles */
+        .app-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .app-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .download-progress {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 10000;
+            min-width: 400px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 15px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .clickable {
+            cursor: pointer;
+            user-select: none;
+            pointer-events: auto;
+        }
+
+        .clickable:hover {
+            opacity: 0.8;
+        }
+
+        .clickable:active {
+            transform: scale(0.95);
+        }
+
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .stats-counter {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+
+        .category-badge {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .search-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .app-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 min-h-screen">
+    
+
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay" onclick="closeDownloadModal()"></div>
+
+    <!-- Download Progress Modal -->
+    <div id="downloadProgress" class="download-progress">
+        <div class="text-center">
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">جاري تحميل التطبيق...</h3>
+            <div class="mb-4">
+                <div id="downloadAppIcon" class="text-6xl mb-2">📱</div>
+                <p id="downloadAppName" class="font-semibold text-lg"></p>
+                <p id="downloadAppSize" class="text-gray-600"></p>
+            </div>
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <p id="progressText" class="text-center font-semibold text-lg">0%</p>
+            <div class="flex justify-center gap-4 mt-6">
+                <button onclick="pauseDownload()" id="pauseBtn" class="px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 clickable">إيقاف مؤقت</button>
+                <button onclick="cancelDownload()" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 clickable">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div>
+        <!-- Header -->
+        <header class="gradient-bg text-white py-20 relative overflow-hidden">
+            <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center">
+                    <h1 class="text-7xl font-bold mb-6 floating-animation">📱 APPZOZ</h1>
+                    <p class="text-2xl opacity-90 mb-8 max-w-3xl mx-auto">أكبر مكتبة تطبيقات في العالم العربي - أكثر من 1000 تطبيق للتحميل المباشر</p>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 max-w-4xl mx-auto">
+                        <div class="text-center">
+                            <div class="stats-counter" id="appsCount">1247</div>
+                            <p class="text-lg opacity-80">تطبيق متاح</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="stats-counter" id="downloadsCount">2.5M</div>
+                            <p class="text-lg opacity-80">تحميل يومي</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="stats-counter" id="categoriesCount">15</div>
+                            <p class="text-lg opacity-80">فئة مختلفة</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="stats-counter" id="usersCount">850K</div>
+                            <p class="text-lg opacity-80">مستخدم نشط</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search and Filters -->
+        <section class="py-12 relative">
+            <div class="container mx-auto px-6">
+                <div class="search-container rounded-3xl p-8 shadow-2xl max-w-6xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <input type="text" id="searchInput" placeholder="ابحث عن تطبيق..." 
+                               class="col-span-2 px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg" 
+                               onkeyup="searchApps()">
+                        
+                        <select id="categoryFilter" class="px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 text-lg clickable" onchange="filterApps()">
+                            <option value="">جميع الفئات</option>
+                            <option value="games">🎮 الألعاب (320)</option>
+                            <option value="social">💬 التواصل (180)</option>
+                            <option value="video">🎬 الفيديو (150)</option>
+                            <option value="music">🎵 الموسيقى (120)</option>
+                            <option value="tools">🔧 الأدوات (110)</option>
+                            <option value="education">📚 التعليم (95)</option>
+                            <option value="photo">📸 التصوير (85)</option>
+                            <option value="productivity">💼 الإنتاجية (75)</option>
+                            <option value="finance">💰 المالية (65)</option>
+                            <option value="shopping">🛒 التسوق (55)</option>
+                            <option value="health">🏥 الصحة (45)</option>
+                            <option value="news">📰 الأخبار (40)</option>
+                            <option value="maps">🗺️ الخرائط (35)</option>
+                            <option value="travel">✈️ السفر (30)</option>
+                            <option value="food">🍔 الطعام (25)</option>
+                        </select>
+                        
+                        <select id="platformFilter" class="px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-2 focus:ring-blue-500 text-lg clickable" onchange="filterApps()">
+                            <option value="">جميع المنصات</option>
+                            <option value="Android">🤖 Android</option>
+                            <option value="iOS">🍎 iOS</option>
+                            <option value="Windows">🖥️ Windows</option>
+                            <option value="Mac">💻 Mac</option>
+                            <option value="Web">🌐 Web</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Quick Filters -->
+                    <div class="flex flex-wrap gap-3 mt-6 justify-center">
+                        <button onclick="filterByType('free')" class="px-4 py-2 bg-green-500 text-white rounded-full hover:bg-green-600 transition clickable">مجاني</button>
+                        <button onclick="filterByType('paid')" class="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition clickable">مدفوع</button>
+                        <button onclick="filterByType('freemium')" class="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition clickable">مجاني مع مشتريات</button>
+                        <button onclick="filterByRating(4.5)" class="px-4 py-2 bg-yellow-500 text-white rounded-full hover:bg-yellow-600 transition clickable">⭐ 4.5+</button>
+                        <button onclick="filterBySize('small')" class="px-4 py-2 bg-indigo-500 text-white rounded-full hover:bg-indigo-600 transition clickable">حجم صغير</button>
+                        <button onclick="showTrending()" class="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition clickable">🔥 الأكثر تحميلاً</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Apps Container -->
+        <main class="container mx-auto px-6 py-12">
+            <div id="appsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Apps will be loaded here -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="loadMoreBtn" onclick="loadMoreApps()" class="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all transform hover:scale-105 clickable">
+                    تحميل المزيد من التطبيقات
+                </button>
+                <p class="mt-4 text-gray-600">عرض <span id="currentCount">50</span> من أصل <span id="totalCount">1247</span> تطبيق</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-12 mt-20">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">📱 APPZOZ</h3>
+                        <p class="text-gray-300">أكبر مكتبة تطبيقات في العالم العربي مع أكثر من 1000 تطبيق للتحميل المجاني والآمن.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">الفئات الشائعة</h4>
+                        <ul class="space-y-2 text-gray-300">
+                            <li><a href="#" class="hover:text-white clickable">الألعاب</a></li>
+                            <li><a href="#" class="hover:text-white clickable">التواصل الاجتماعي</a></li>
+                            <li><a href="#" class="hover:text-white clickable">الأدوات</a></li>
+                            <li><a href="#" class="hover:text-white clickable">التعليم</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">المنصات</h4>
+                        <ul class="space-y-2 text-gray-300">
+                            <li><a href="#" class="hover:text-white clickable">Android</a></li>
+                            <li><a href="#" class="hover:text-white clickable">iOS</a></li>
+                            <li><a href="#" class="hover:text-white clickable">Windows</a></li>
+                            <li><a href="#" class="hover:text-white clickable">Mac</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">تواصل معنا</h4>
+                        <ul class="space-y-2 text-gray-300">
+                            <li>📧 info@appzoz.com</li>
+                            <li>📱 +966 50 123 4567</li>
+                            <li>🌐 www.appzoz.com</li>
+                            <li>📍 الرياض، السعودية</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                    <p>&copy; 2024 APPZOZ. جميع الحقوق محفوظة.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Apps Database
+        const appsDatabase = [
+            // Games
+            {name: "PUBG Mobile", icon: "🎮", description: "لعبة باتل رويال الأكثر شعبية مع 100 لاعب", category: "games", platforms: ["Android", "iOS"], type: "free", size: "2.5 GB", rating: 4.2, downloads: "500M+", fileUrl: "pubg-mobile.apk"},
+            {name: "Free Fire", icon: "🔥", description: "لعبة باتل رويال سريعة مع مباريات 10 دقائق", category: "games", platforms: ["Android", "iOS"], type: "free", size: "1.2 GB", rating: 4.1, downloads: "1B+", fileUrl: "free-fire.apk"},
+            {name: "Clash of Clans", icon: "⚔️", description: "ابني قريتك وقاتل اللاعبين الآخرين", category: "games", platforms: ["Android", "iOS"], type: "freemium", size: "285 MB", rating: 4.5, downloads: "500M+", fileUrl: "clash-of-clans.apk"},
+            {name: "Subway Surfers", icon: "🏃", description: "اجري بلا نهاية واجمع العملات", category: "games", platforms: ["Android", "iOS"], type: "free", size: "180 MB", rating: 4.4, downloads: "1B+", fileUrl: "subway-surfers.apk"},
+            {name: "Call of Duty Mobile", icon: "🔫", description: "أفضل ألعاب الأكشن والحروب", category: "games", platforms: ["Android", "iOS"], type: "free", size: "3.8 GB", rating: 4.3, downloads: "500M+", fileUrl: "cod-mobile.apk"},
+            {name: "Among Us", icon: "👾", description: "لعبة الغموض والخداع الشهيرة", category: "games", platforms: ["Android", "iOS", "Windows"], type: "paid", size: "250 MB", rating: 4.0, downloads: "100M+", fileUrl: "among-us.apk"},
+            {name: "Minecraft", icon: "🧱", description: "ابني عالمك الخاص في هذه اللعبة الإبداعية", category: "games", platforms: ["Android", "iOS", "Windows", "Mac"], type: "paid", size: "150 MB", rating: 4.6, downloads: "50M+", fileUrl: "minecraft.apk"},
+            {name: "Candy Crush Saga", icon: "🍭", description: "لعبة الألغاز الملونة الأكثر شعبية", category: "games", platforms: ["Android", "iOS"], type: "freemium", size: "95 MB", rating: 4.3, downloads: "1B+", fileUrl: "candy-crush.apk"},
+            {name: "Clash Royale", icon: "👑", description: "لعبة استراتيجية سريعة من صناع Clash of Clans", category: "games", platforms: ["Android", "iOS"], type: "freemium", size: "180 MB", rating: 4.4, downloads: "100M+", fileUrl: "clash-royale.apk"},
+            {name: "Roblox", icon: "🎯", description: "منصة الألعاب الإبداعية مع ملايين الألعاب", category: "games", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "200 MB", rating: 4.2, downloads: "100M+", fileUrl: "roblox.apk"},
+
+            // Social Media
+            {name: "WhatsApp", icon: "💬", description: "تطبيق المراسلة الأكثر استخداماً في العالم", category: "social", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "65 MB", rating: 4.1, downloads: "5B+", fileUrl: "whatsapp.apk"},
+            {name: "Facebook", icon: "📘", description: "شبكة التواصل الاجتماعي الأكبر في العالم", category: "social", platforms: ["Android", "iOS"], type: "free", size: "120 MB", rating: 3.8, downloads: "5B+", fileUrl: "facebook.apk"},
+            {name: "Instagram", icon: "📷", description: "شارك الصور والقصص مع أصدقائك", category: "social", platforms: ["Android", "iOS"], type: "free", size: "85 MB", rating: 4.2, downloads: "2B+", fileUrl: "instagram.apk"},
+            {name: "Telegram", icon: "✈️", description: "تطبيق مراسلة آمن وسريع مع ميزات متقدمة", category: "social", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "45 MB", rating: 4.6, downloads: "1B+", fileUrl: "telegram.apk"},
+            {name: "TikTok", icon: "🎵", description: "منصة الفيديوهات القصيرة الأكثر شعبية", category: "social", platforms: ["Android", "iOS"], type: "free", size: "180 MB", rating: 4.4, downloads: "3B+", fileUrl: "tiktok.apk"},
+            {name: "Snapchat", icon: "👻", description: "شارك اللحظات مع الأصدقاء بطريقة ممتعة", category: "social", platforms: ["Android", "iOS"], type: "free", size: "95 MB", rating: 4.1, downloads: "1B+", fileUrl: "snapchat.apk"},
+            {name: "Twitter", icon: "🐦", description: "تابع الأخبار والأحداث العالمية", category: "social", platforms: ["Android", "iOS"], type: "free", size: "75 MB", rating: 3.9, downloads: "1B+", fileUrl: "twitter.apk"},
+            {name: "LinkedIn", icon: "💼", description: "الشبكة المهنية للتواصل والعمل", category: "social", platforms: ["Android", "iOS"], type: "free", size: "55 MB", rating: 4.3, downloads: "100M+", fileUrl: "linkedin.apk"},
+            {name: "Discord", icon: "🎮", description: "تطبيق التواصل الصوتي والنصي للألعاب", category: "social", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "85 MB", rating: 4.4, downloads: "100M+", fileUrl: "discord.apk"},
+            {name: "Pinterest", icon: "📌", description: "اكتشف الأفكار الإبداعية والإلهام", category: "social", platforms: ["Android", "iOS"], type: "free", size: "65 MB", rating: 4.5, downloads: "500M+", fileUrl: "pinterest.apk"},
+
+            // Video & Entertainment
+            {name: "Netflix", icon: "🎬", description: "أفضل منصة لمشاهدة الأفلام والمسلسلات", category: "video", platforms: ["Android", "iOS", "Windows"], type: "subscription", size: "85 MB", rating: 4.2, downloads: "1B+", fileUrl: "netflix.apk"},
+            {name: "Disney+", icon: "🏰", description: "أفلام ديزني وبيكسار ومارفل", category: "video", platforms: ["Android", "iOS"], type: "subscription", size: "75 MB", rating: 4.4, downloads: "100M+", fileUrl: "disney-plus.apk"},
+            {name: "Amazon Prime Video", icon: "📦", description: "مكتبة ضخمة من الأفلام والمسلسلات", category: "video", platforms: ["Android", "iOS"], type: "subscription", size: "95 MB", rating: 4.1, downloads: "500M+", fileUrl: "prime-video.apk"},
+            {name: "VLC Media Player", icon: "🎥", description: "مشغل الوسائط الأقوى والأكثر مرونة", category: "video", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "45 MB", rating: 4.6, downloads: "5B+", fileUrl: "vlc.apk"},
+            {name: "YouTube", icon: "📺", description: "منصة الفيديو الأكبر في العالم", category: "video", platforms: ["Android", "iOS"], type: "free", size: "125 MB", rating: 4.3, downloads: "10B+", fileUrl: "youtube.apk"},
+
+            // Music
+            {name: "Spotify", icon: "🎵", description: "أكبر منصة للموسيقى في العالم", category: "music", platforms: ["Android", "iOS", "Windows", "Mac"], type: "freemium", size: "85 MB", rating: 4.3, downloads: "1B+", fileUrl: "spotify.apk"},
+            {name: "Apple Music", icon: "🍎", description: "خدمة الموسيقى من آبل", category: "music", platforms: ["Android", "iOS", "Windows", "Mac"], type: "subscription", size: "75 MB", rating: 4.4, downloads: "100M+", fileUrl: "apple-music.apk"},
+            {name: "YouTube Music", icon: "🎶", description: "موسيقى من يوتيوب", category: "music", platforms: ["Android", "iOS"], type: "freemium", size: "65 MB", rating: 4.1, downloads: "1B+", fileUrl: "youtube-music.apk"},
+            {name: "SoundCloud", icon: "☁️", description: "اكتشف الموسيقى الجديدة", category: "music", platforms: ["Android", "iOS"], type: "freemium", size: "55 MB", rating: 4.2, downloads: "100M+", fileUrl: "soundcloud.apk"},
+            {name: "Shazam", icon: "🔍", description: "اكتشف الأغاني من حولك", category: "music", platforms: ["Android", "iOS"], type: "free", size: "35 MB", rating: 4.6, downloads: "1B+", fileUrl: "shazam.apk"},
+
+            // Tools
+            {name: "Google Chrome", icon: "🌐", description: "متصفح الويب الأسرع والأكثر أماناً", category: "tools", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "85 MB", rating: 4.3, downloads: "10B+", fileUrl: "chrome.apk"},
+            {name: "Mozilla Firefox", icon: "🦊", description: "متصفح مفتوح المصدر وآمن", category: "tools", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "95 MB", rating: 4.4, downloads: "1B+", fileUrl: "firefox.apk"},
+            {name: "Microsoft Edge", icon: "🔷", description: "متصفح مايكروسوفت الجديد", category: "tools", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "125 MB", rating: 4.2, downloads: "1B+", fileUrl: "edge.apk"},
+            {name: "WinRAR", icon: "📦", description: "ضغط وفك ضغط الملفات", category: "tools", platforms: ["Windows", "Android"], type: "paid", size: "25 MB", rating: 4.4, downloads: "1B+", fileUrl: "winrar.exe"},
+            {name: "CCleaner", icon: "🧹", description: "تنظيف وتحسين النظام", category: "tools", platforms: ["Android", "Windows", "Mac"], type: "freemium", size: "45 MB", rating: 4.3, downloads: "2B+", fileUrl: "ccleaner.apk"},
+
+            // Education
+            {name: "Duolingo", icon: "🦉", description: "تعلم اللغات بطريقة ممتعة", category: "education", platforms: ["Android", "iOS"], type: "freemium", size: "45 MB", rating: 4.6, downloads: "500M+", fileUrl: "duolingo.apk"},
+            {name: "Khan Academy", icon: "🎓", description: "تعليم مجاني للجميع", category: "education", platforms: ["Android", "iOS"], type: "free", size: "85 MB", rating: 4.7, downloads: "10M+", fileUrl: "khan-academy.apk"},
+            {name: "Coursera", icon: "📚", description: "دورات من أفضل الجامعات", category: "education", platforms: ["Android", "iOS"], type: "freemium", size: "75 MB", rating: 4.5, downloads: "50M+", fileUrl: "coursera.apk"},
+            {name: "Photomath", icon: "📐", description: "حل مسائل الرياضيات بالكاميرا", category: "education", platforms: ["Android", "iOS"], type: "freemium", size: "45 MB", rating: 4.6, downloads: "100M+", fileUrl: "photomath.apk"},
+            {name: "Google Earth", icon: "🌍", description: "استكشف الأرض من الفضاء", category: "education", platforms: ["Android", "iOS", "Windows", "Mac"], type: "free", size: "95 MB", rating: 4.4, downloads: "1B+", fileUrl: "google-earth.apk"},
+
+            // Photo & Video Editing
+            {name: "Canva", icon: "🎨", description: "تصميم جرافيك سهل للجميع", category: "photo", platforms: ["Android", "iOS"], type: "freemium", size: "85 MB", rating: 4.7, downloads: "500M+", fileUrl: "canva.apk"},
+            {name: "PicsArt", icon: "📸", description: "محرر صور وفيديو إبداعي", category: "photo", platforms: ["Android", "iOS"], type: "freemium", size: "125 MB", rating: 4.3, downloads: "1B+", fileUrl: "picsart.apk"},
+            {name: "VSCO", icon: "📷", description: "فلاتر وتحرير احترافي", category: "photo", platforms: ["Android", "iOS"], type: "freemium", size: "95 MB", rating: 4.4, downloads: "100M+", fileUrl: "vsco.apk"},
+            {name: "Snapseed", icon: "✨", description: "محرر صور احترافي من جوجل", category: "photo", platforms: ["Android", "iOS"], type: "free", size: "45 MB", rating: 4.5, downloads: "1B+", fileUrl: "snapseed.apk"},
+            {name: "InShot", icon: "✂️", description: "محرر فيديو وصور سهل", category: "photo", platforms: ["Android", "iOS"], type: "freemium", size: "85 MB", rating: 4.6, downloads: "1B+", fileUrl: "inshot.apk"},
+
+            // Productivity & Work
+            {name: "Microsoft Office", icon: "📄", description: "مجموعة أوفيس الكاملة", category: "productivity", platforms: ["Android", "iOS", "Windows", "Mac"], type: "subscription", size: "1.2 GB", rating: 4.4, downloads: "1B+", fileUrl: "office.exe"},
+            {name: "Google Workspace", icon: "🌐", description: "أدوات العمل من جوجل", category: "productivity", platforms: ["Android", "iOS", "Windows", "Mac"], type: "freemium", size: "Varies", rating: 4.3, downloads: "5B+", fileUrl: "google-workspace.apk"},
+            {name: "Notion", icon: "📝", description: "مساحة عمل شاملة", category: "productivity", platforms: ["Android", "iOS", "Windows", "Mac"], type: "freemium", size: "85 MB", rating: 4.5, downloads: "10M+", fileUrl: "notion.apk"},
+            {name: "Zoom", icon: "📹", description: "مؤتمرات فيديو عالية الجودة", category: "productivity", platforms: ["Android", "iOS", "Windows", "Mac"], type: "freemium", size: "95 MB", rating: 4.4, downloads: "500M+", fileUrl: "zoom.apk"},
+            {name: "Todoist", icon: "✔️", description: "مدير المهام الذكي", category: "productivity", platforms: ["Android", "iOS", "Windows", "Mac"], type: "freemium", size: "45 MB", rating: 4.6, downloads: "10M+", fileUrl: "todoist.apk"},
+
+            // Finance & Payment
+            {name: "PayPal", icon: "💳", description: "دفع رقمي آمن وسريع", category: "finance", platforms: ["Android", "iOS"], type: "free", size: "85 MB", rating: 4.3, downloads: "1B+", fileUrl: "paypal.apk"},
+            {name: "Google Pay", icon: "🌐", description: "دفع رقمي من جوجل", category: "finance", platforms: ["Android", "iOS"], type: "free", size: "75 MB", rating: 4.1, downloads: "1B+", fileUrl: "google-pay.apk"},
+            {name: "Mint", icon: "🌿", description: "إدارة الأموال الشخصية", category: "finance", platforms: ["Android", "iOS"], type: "free", size: "125 MB", rating: 4.4, downloads: "10M+", fileUrl: "mint.apk"},
+            {name: "Robinhood", icon: "🏹", description: "تداول الأسهم بدون عمولة", category: "finance", platforms: ["Android", "iOS"], type: "free", size: "125 MB", rating: 4.2, downloads: "10M+", fileUrl: "robinhood.apk"},
+            {name: "Coinbase", icon: "₿", description: "تداول العملات المشفرة", category: "finance", platforms: ["Android", "iOS"], type: "free", size: "125 MB", rating: 4.1, downloads: "50M+", fileUrl: "coinbase.apk"}
+        ];
+
+        let currentAppsShown = 50;
+        let filteredApps = [...appsDatabase];
+        let downloadInterval;
+        let isPaused = false;
+        let currentProgress = 0;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadApps();
+            animateCounters();
+        });
+
+        // Download simulation
+        function downloadApp(name, icon, size, fileUrl) {
+            if (document.getElementById('downloadProgress').style.display === 'block') {
+                return;
+            }
+            
+            document.getElementById('downloadAppName').textContent = name;
+            document.getElementById('downloadAppIcon').textContent = icon;
+            document.getElementById('downloadAppSize').textContent = `حجم الملف: ${size}`;
+            
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('downloadProgress').style.display = 'block';
+            
+            currentProgress = 0;
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('progressText').textContent = '0%';
+            document.getElementById('pauseBtn').textContent = 'إيقاف مؤقت';
+            document.getElementById('pauseBtn').className = 'px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 clickable';
+            isPaused = false;
+            
+            simulateDownload();
+        }
+
+        function simulateDownload() {
+            if (downloadInterval) {
+                clearInterval(downloadInterval);
+            }
+            
+            downloadInterval = setInterval(() => {
+                if (!isPaused) {
+                    currentProgress += Math.random() * 3 + 1;
+                    
+                    if (currentProgress >= 100) {
+                        currentProgress = 100;
+                        clearInterval(downloadInterval);
+                        
+                        document.getElementById('progressFill').style.width = '100%';
+                        document.getElementById('progressText').textContent = '100% - اكتمل التحميل!';
+                        
+                        setTimeout(() => {
+                            closeDownloadModal();
+                            alert('تم تحميل التطبيق بنجاح! 🎉\n\nملاحظة: هذا موقع تجريبي، لم يتم تحميل أي ملف فعلي.');
+                        }, 1000);
+                    } else {
+                        document.getElementById('progressFill').style.width = currentProgress + '%';
+                        document.getElementById('progressText').textContent = Math.round(currentProgress) + '%';
+                    }
+                }
+            }, 200);
+        }
+
+        function pauseDownload() {
+            isPaused = !isPaused;
+            const pauseBtn = document.getElementById('pauseBtn');
+            
+            if (isPaused) {
+                pauseBtn.textContent = 'استئناف';
+                pauseBtn.className = 'px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 clickable';
+            } else {
+                pauseBtn.textContent = 'إيقاف مؤقت';
+                pauseBtn.className = 'px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 clickable';
+            }
+        }
+
+        function cancelDownload() {
+            if (downloadInterval) {
+                clearInterval(downloadInterval);
+            }
+            closeDownloadModal();
+        }
+
+        function closeDownloadModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('downloadProgress').style.display = 'none';
+            currentProgress = 0;
+            isPaused = false;
+            if (downloadInterval) {
+                clearInterval(downloadInterval);
+            }
+        }
+
+        function createAppCard(app) {
+            return `
+                <div class="app-card bg-white rounded-3xl p-6 shadow-lg hover:shadow-2xl clickable" onclick="downloadApp('${app.name}', '${app.icon}', '${app.size}', '${app.fileUrl}')">
+                    <div class="text-center">
+                        <div class="app-icon">${app.icon}</div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">${app.name}</h3>
+                        <p class="text-gray-600 text-sm mb-4 leading-relaxed">${app.description}</p>
+                        
+                        <div class="flex flex-wrap justify-center gap-1 mb-4">
+                            ${app.platforms.map(platform => `<span class="platform-icon">${getPlatformIcon(platform)}</span>`).join('')}
+                        </div>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="category-badge">${getCategoryName(app.category)}</span>
+                            <span class="text-sm text-gray-500">${app.size}</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <div class="flex items-center">
+                                <span class="text-yellow-500">⭐</span>
+                                <span class="text-sm font-semibold ml-1">${app.rating}</span>
+                            </div>
+                            <span class="text-xs text-gray-500">${app.downloads}</span>
+                        </div>
+                        
+                        <button class="download-btn w-full py-3 px-6 text-white font-semibold rounded-2xl clickable" onclick="event.stopPropagation(); downloadApp('${app.name}', '${app.icon}', '${app.size}', '${app.fileUrl}')">
+                            تحميل مجاني
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getPlatformIcon(platform) {
+            const icons = {
+                'Android': '🤖',
+                'iOS': '🍎',
+                'Windows': '🖥️',
+                'Mac': '💻',
+                'Web': '🌐'
+            };
+            return icons[platform] || '📱';
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                'games': '🎮 ألعاب',
+                'social': '💬 اجتماعي',
+                'video': '🎬 فيديو',
+                'music': '🎵 موسيقى',
+                'tools': '🔧 أدوات',
+                'education': '📚 تعليم',
+                'photo': '📸 تصوير',
+                'productivity': '💼 إنتاجية',
+                'finance': '💰 مالية',
+                'shopping': '🛒 تسوق',
+                'health': '🏥 صحة',
+                'news': '📰 أخبار',
+                'maps': '🗺️ خرائط',
+                'travel': '✈️ سفر',
+                'food': '🍔 طعام'
+            };
+            return names[category] || '📱 عام';
+        }
+
+        function loadApps() {
+            const container = document.getElementById('appsContainer');
+            const appsToShow = filteredApps.slice(0, currentAppsShown);
+            
+            container.innerHTML = appsToShow.map(app => createAppCard(app)).join('');
+            
+            document.getElementById('currentCount').textContent = Math.min(currentAppsShown, filteredApps.length);
+            document.getElementById('totalCount').textContent = filteredApps.length;
+            
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
+            if (currentAppsShown >= filteredApps.length) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'inline-block';
+            }
+        }
+
+        function loadMoreApps() {
+            currentAppsShown += 20;
+            loadApps();
+        }
+
+        function searchApps() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            filteredApps = appsDatabase.filter(app => 
+                app.name.toLowerCase().includes(searchTerm) || 
+                app.description.toLowerCase().includes(searchTerm)
+            );
+            currentAppsShown = 50;
+            loadApps();
+        }
+
+        function filterApps() {
+            const category = document.getElementById('categoryFilter').value;
+            const platform = document.getElementById('platformFilter').value;
+            
+            filteredApps = appsDatabase.filter(app => {
+                const categoryMatch = !category || app.category === category;
+                const platformMatch = !platform || app.platforms.includes(platform);
+                return categoryMatch && platformMatch;
+            });
+            
+            currentAppsShown = 50;
+            loadApps();
+        }
+
+        function filterByType(type) {
+            filteredApps = appsDatabase.filter(app => app.type === type);
+            currentAppsShown = 50;
+            loadApps();
+        }
+
+        function filterByRating(minRating) {
+            filteredApps = appsDatabase.filter(app => app.rating >= minRating);
+            currentAppsShown = 50;
+            loadApps();
+        }
+
+        function filterBySize(sizeType) {
+            filteredApps = appsDatabase.filter(app => {
+                const sizeNum = parseFloat(app.size);
+                if (sizeType === 'small') {
+                    return sizeNum < 100 || app.size.includes('MB');
+                }
+                return true;
+            });
+            currentAppsShown = 50;
+            loadApps();
+        }
+
+        function showTrending() {
+            filteredApps = [...appsDatabase].sort((a, b) => {
+                const aDownloads = parseFloat(a.downloads.replace(/[^\d.]/g, ''));
+                const bDownloads = parseFloat(b.downloads.replace(/[^\d.]/g, ''));
+                return bDownloads - aDownloads;
+            });
+            currentAppsShown = 50;
+            loadApps();
+        }
+
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stats-counter');
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                counter.textContent = '0';
+                
+                const increment = () => {
+                    const current = parseFloat(counter.textContent);
+                    const targetNum = parseFloat(target.replace(/[^\d.]/g, ''));
+                    const step = targetNum / 50;
+                    
+                    if (current < targetNum) {
+                        counter.textContent = Math.ceil(current + step) + target.replace(/[\d.]/g, '');
+                        setTimeout(increment, 50);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                setTimeout(increment, 500);
+            });
+        }
+
+
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96c1d380913acc66',t:'MTc1NDY4NTU5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
