@@ -1,0 +1,3763 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APPZOZ - دليلك الرسمي للتطبيقات والألعاب المعتمدة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-gradient {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .profit-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .deal-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .coupon-code {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 25px;
+            border: 2px dashed #ff6b6b;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 10px #ffd700; }
+            to { box-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700; }
+        }
+        
+        .profit-indicator {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .earnings-counter {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .android { background: #4CAF50; color: white; }
+        .ios { background: #007AFF; color: white; }
+        .windows { background: #0078D4; color: white; }
+        .mac { background: #000000; color: white; }
+        .web { background: #FF5722; color: white; }
+
+        .category-filter {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-filter:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .category-filter.active {
+            background: linear-gradient(45deg, #10b981, #059669);
+        }
+
+        .search-box {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .download-btn {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+        }
+
+        .download-count {
+            background: #f3f4f6;
+            color: #374151;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            object-fit: cover;
+            border: 2px solid #e2e8f0;
+        }
+
+        .app-icon-large {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-left: 16px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #ff4757;
+        }
+
+        .download-modal-btn {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .download-modal-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .screenshot-gallery {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin: 20px 0;
+        }
+
+        .screenshot {
+            width: 120px;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-list {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+        }
+
+        .nav-link {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #fbbf24 !important;
+        }
+
+        /* Ad Container Styles */
+        .ad-container {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-content {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .countdown-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(#10b981 0deg, #10b981 0deg, rgba(255,255,255,0.3) 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+            transition: all 0.1s ease;
+        }
+
+        .countdown-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .download-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .download-option {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .download-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-color: #10b981;
+        }
+
+        .download-option.playstore {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .download-option.appstore {
+            background: linear-gradient(135deg, #007AFF, #0056CC);
+            color: white;
+        }
+
+        .download-option.apk {
+            background: linear-gradient(135deg, #FF9800, #F57C00);
+            color: white;
+        }
+
+        .download-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .download-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .download-description {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .revenue-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            z-index: 2000;
+            transform: translateX(400px);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .revenue-notification.show {
+            transform: translateX(0);
+        }
+
+        .app-description {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .app-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Designer Control Panel */
+        .designer-panel {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 30px 0;
+            color: white;
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.3);
+        }
+
+        .profit-boost-btn {
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .profit-boost-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .admin-stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .commission-slider {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        /* Moving Header Bar Animation */
+        .moving-text {
+            display: flex;
+            animation: moveRight 30s linear infinite;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        @keyframes moveRight {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .moving-text:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+
+
+
+    <!-- Navigation -->
+    <nav class="hero-gradient text-white fixed w-full top-0 z-40 shadow-2xl">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="bg-white bg-opacity-20 p-4 rounded-full floating">
+                        <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background Circle -->
+                            <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" stroke="white" stroke-width="3"/>
+                            
+                            <!-- Letter A -->
+                            <path d="M15 45 L25 25 L35 45 M20 35 L30 35" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Letter P (First) -->
+                            <path d="M40 25 L40 45 M40 25 L50 25 L50 35 L40 35" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Letter P (Second) -->
+                            <path d="M55 25 L55 45 M55 25 L65 25 L65 35 L55 35" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Letter Z -->
+                            <path d="M70 25 L85 25 L70 45 L85 45" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Letter O -->
+                            <circle cx="50" cy="65" r="8" stroke="white" stroke-width="3" fill="none"/>
+                            
+                            <!-- Letter Z (Last) -->
+                            <path d="M70 55 L85 55 L70 75 L85 75" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Gradient Definition -->
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold">APPZOZ</h1>
+                        <p class="text-sm opacity-90">دليلك الرسمي للتطبيقات والألعاب المعتمدة</p>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 space-x-reverse">
+                    <a class="nav-link hover:text-yellow-300 transition duration-300 font-semibold" onclick="scrollToSection('home')">الرئيسية</a>
+                    <a class="nav-link hover:text-yellow-300 transition duration-300 font-semibold" onclick="scrollToSection('apps')">التطبيقات</a>
+                    <a class="nav-link hover:text-yellow-300 transition duration-300 font-semibold" onclick="scrollToSection('games')">الألعاب</a>
+                    <a class="nav-link hover:text-yellow-300 transition duration-300 font-semibold" onclick="scrollToSection('features')">✨ المميزات</a>
+                    <a class="nav-link hover:text-yellow-300 transition duration-300 font-semibold" onclick="scrollToSection('about')">عن الموقع</a>
+                </div>
+                
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="bg-green-600 text-white px-4 py-2 rounded-full font-bold">
+                        <i class="fas fa-certificate ml-1"></i>
+                        دليل معتمد
+                    </div>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full text-sm transition duration-300" onclick="showContactForm()">
+                        <i class="fas fa-headset ml-1"></i>
+                        الدعم الفني
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Official Certification Section -->
+    <section class="bg-gradient-to-r from-blue-50 to-green-50 py-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-certificate text-blue-600 ml-3"></i>
+                    APPZOZ - منصة معتمدة للتطبيقات والألعاب الرسمية
+                </h2>
+                <p class="text-xl text-gray-600">نوجهك حصرياً إلى المتاجر الرسمية المعتمدة والمواقع الرسمية للمطورين</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">روابط رسمية فقط</h3>
+                    <p class="text-gray-600">جميع الروابط تؤدي للمتاجر الرسمية المعتمدة</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-search text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">سهولة البحث</h3>
+                    <p class="text-gray-600">ابحث واعثر على التطبيق المناسب بسرعة</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-lg text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-star text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">محتوى محدث</h3>
+                    <p class="text-gray-600">معلومات محدثة عن أحدث التطبيقات</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white pt-28 pb-20 min-h-screen flex items-center">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-6xl md:text-7xl font-bold mb-8">
+                    APPZOZ
+                </h2>
+                <p class="text-2xl md:text-3xl mb-12 opacity-90 leading-relaxed">
+                    منصة APPZOZ الرسمية للوصول إلى التطبيقات والألعاب من مصادرها المعتمدة • Google Play Store • App Store • Microsoft Store • مواقع المطورين الرسمية
+                </p>
+                
+                <!-- Platform Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-6xl mx-auto mb-12">
+                    <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-2xl">
+                        <div class="text-3xl font-bold mb-2">5,000+</div>
+                        <div class="text-lg opacity-80">تطبيق</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-2xl">
+                        <div class="text-3xl font-bold mb-2">5,000+</div>
+                        <div class="text-lg opacity-80">لعبة</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-2xl">
+                        <div class="text-3xl font-bold mb-2">100,000+</div>
+                        <div class="text-lg opacity-80">عميل راضي</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-2xl">
+                        <div class="text-3xl font-bold mb-2">24/7</div>
+                        <div class="text-lg opacity-80">دعم فني</div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg p-6 rounded-2xl">
+                        <div class="text-3xl font-bold mb-2">99%</div>
+                        <div class="text-lg opacity-80">معدل الرضا</div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <button class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-10 py-5 rounded-full font-bold text-xl transition duration-300 transform hover:scale-105" onclick="exploreApps()">
+                        <i class="fas fa-mobile-alt ml-3"></i>
+                        تصفح التطبيقات الرسمية
+                    </button>
+                    <button class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-10 py-5 rounded-full font-bold text-xl transition duration-300 transform hover:scale-105" onclick="exploreGames()">
+                        <i class="fas fa-gamepad ml-3"></i>
+                        تصفح الألعاب الرسمية
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps Section -->
+    <section id="apps" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-5xl font-bold text-gray-800 mb-6">📱 دليل التطبيقات الرسمية</h3>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
+                    اكتشف آلاف التطبيقات من المصادر الرسمية الآمنة
+                </p>
+                
+                <!-- Search Box -->
+                <div class="mb-8">
+                    <input type="text" id="app-search" class="search-box" placeholder="🔍 ابحث عن التطبيق المطلوب..." onkeyup="searchApps()">
+                </div>
+                
+                <!-- Platform Filters -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-bold text-gray-700 mb-4">المنصات المتاحة:</h4>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <button class="category-filter active" onclick="filterByPlatform('all')">جميع المنصات</button>
+                        <button class="category-filter" onclick="filterByPlatform('android')">🤖 أندرويد</button>
+                        <button class="category-filter" onclick="filterByPlatform('ios')">🍎 آيفون</button>
+                        <button class="category-filter" onclick="filterByPlatform('windows')">🪟 ويندوز</button>
+                        <button class="category-filter" onclick="filterByPlatform('mac')">💻 ماك</button>
+                        <button class="category-filter" onclick="filterByPlatform('web')">🌐 ويب</button>
+                    </div>
+                </div>
+                
+                <!-- Category Filters -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-bold text-gray-700 mb-4">التصنيفات:</h4>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <button class="category-filter active" onclick="filterByCategory('all')">جميع التصنيفات</button>
+                        <button class="category-filter" onclick="filterByCategory('social')">📱 شبكات اجتماعية</button>
+                        <button class="category-filter" onclick="filterByCategory('productivity')">⚡ إنتاجية</button>
+                        <button class="category-filter" onclick="filterByCategory('photo')">📸 تصوير وتحرير</button>
+                        <button class="category-filter" onclick="filterByCategory('music')">🎵 موسيقى</button>
+                        <button class="category-filter" onclick="filterByCategory('video')">🎬 فيديو</button>
+                        <button class="category-filter" onclick="filterByCategory('education')">📚 تعليم</button>
+                        <button class="category-filter" onclick="filterByCategory('business')">💼 أعمال</button>
+                        <button class="category-filter" onclick="filterByCategory('health')">🏥 صحة</button>
+                        <button class="category-filter" onclick="filterByCategory('travel')">✈️ سفر</button>
+                        <button class="category-filter" onclick="filterByCategory('shopping')">🛒 تسوق</button>
+                        <button class="category-filter" onclick="filterByCategory('finance')">💰 مالية</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Apps Grid -->
+            <div id="apps-grid" class="app-grid max-w-7xl mx-auto">
+                <!-- Apps will be loaded here by JavaScript -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="load-more-apps" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 rounded-full font-bold text-lg transition duration-300 transform hover:scale-105" onclick="loadMoreApps()">
+                    <i class="fas fa-plus ml-2"></i>
+                    تحميل المزيد من التطبيقات
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-20 bg-gradient-to-br from-purple-50 to-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-5xl font-bold text-gray-800 mb-6">🎮 دليل الألعاب الرسمية</h3>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto mb-8">
+                    اكتشف أفضل الألعاب من المتاجر الرسمية المعتمدة
+                </p>
+                
+                <!-- Search Box -->
+                <div class="mb-8">
+                    <input type="text" id="game-search" class="search-box" placeholder="🔍 ابحث عن اللعبة المطلوبة..." onkeyup="searchGames()">
+                </div>
+                
+                <!-- Platform Filters -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-bold text-gray-700 mb-4">المنصات المتاحة:</h4>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <button class="category-filter active" onclick="filterGamesByPlatform('all')">جميع المنصات</button>
+                        <button class="category-filter" onclick="filterGamesByPlatform('android')">🤖 أندرويد</button>
+                        <button class="category-filter" onclick="filterGamesByPlatform('ios')">🍎 آيفون</button>
+                        <button class="category-filter" onclick="filterGamesByPlatform('windows')">🪟 ويندوز</button>
+                        <button class="category-filter" onclick="filterGamesByPlatform('mac')">💻 ماك</button>
+                        <button class="category-filter" onclick="filterGamesByPlatform('web')">🌐 ويب</button>
+                    </div>
+                </div>
+                
+                <!-- Game Category Filters -->
+                <div class="mb-8">
+                    <h4 class="text-lg font-bold text-gray-700 mb-4">أنواع الألعاب:</h4>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <button class="category-filter active" onclick="filterGamesByCategory('all')">جميع الأنواع</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('action')">⚔️ أكشن</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('adventure')">🗺️ مغامرات</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('puzzle')">🧩 ألغاز</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('racing')">🏎️ سباق</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('sports')">⚽ رياضة</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('strategy')">🧠 استراتيجية</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('rpg')">🗡️ RPG</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('simulation')">🏗️ محاكاة</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('arcade')">🕹️ أركيد</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('casual')">😊 عادية</button>
+                        <button class="category-filter" onclick="filterGamesByCategory('multiplayer')">👥 متعددة اللاعبين</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Games Grid -->
+            <div id="games-grid" class="app-grid max-w-7xl mx-auto">
+                <!-- Games will be loaded here by JavaScript -->
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="load-more-games" class="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-full font-bold text-lg transition duration-300 transform hover:scale-105" onclick="loadMoreGames()">
+                    <i class="fas fa-plus ml-2"></i>
+                    تحميل المزيد من الألعاب
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gradient-to-br from-green-50 to-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-5xl font-bold text-gray-800 mb-6">✨ مميزات منصة APPZOZ</h3>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                    اكتشف لماذا يثق أكثر من 100,000 مستخدم في منصة APPZOZ
+                </p>
+            </div>
+            
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-12">
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-lift">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shield-check text-3xl text-white"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">أمان مضمون 100%</h4>
+                        <p class="text-gray-600">جميع الروابط تؤدي للمتاجر الرسمية المعتمدة</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>روابط رسمية فقط</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>فحص دوري للأمان</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>حماية من البرمجيات الخبيثة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>شهادة SSL مُفعلة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-lift">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-search text-3xl text-white"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">بحث ذكي متطور</h4>
+                        <p class="text-gray-600">اعثر على التطبيق المناسب بسرعة وسهولة</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-blue-500 ml-3"></i>
+                            <span>بحث بالاسم والوصف</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-blue-500 ml-3"></i>
+                            <span>فلترة حسب المنصة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-blue-500 ml-3"></i>
+                            <span>تصنيفات متنوعة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-blue-500 ml-3"></i>
+                            <span>اقتراحات ذكية</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-8 shadow-xl hover-lift">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-mobile-alt text-3xl text-white"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">متوافق مع جميع الأجهزة</h4>
+                        <p class="text-gray-600">يعمل بسلاسة على جميع الأجهزة والمنصات</p>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-purple-500 ml-3"></i>
+                            <span>أجهزة الكمبيوتر</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-purple-500 ml-3"></i>
+                            <span>الهواتف الذكية</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-purple-500 ml-3"></i>
+                            <span>الأجهزة اللوحية</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-purple-500 ml-3"></i>
+                            <span>تصميم متجاوب</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="bg-white rounded-3xl p-8 shadow-2xl max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <h4 class="text-3xl font-bold text-gray-800 mb-4">📊 إحصائيات المنصة</h4>
+                    <p class="text-gray-600">أرقام تعكس ثقة المستخدمين</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="text-center p-4 border border-gray-200 rounded-2xl">
+                        <div class="text-3xl font-bold text-green-600">10,000+</div>
+                        <div class="text-sm text-gray-600">تطبيق ولعبة</div>
+                    </div>
+                    
+                    <div class="text-center p-4 border border-gray-200 rounded-2xl">
+                        <div class="text-3xl font-bold text-blue-600">100,000+</div>
+                        <div class="text-sm text-gray-600">مستخدم نشط</div>
+                    </div>
+                    
+                    <div class="text-center p-4 border border-gray-200 rounded-2xl">
+                        <div class="text-3xl font-bold text-purple-600">5M+</div>
+                        <div class="text-sm text-gray-600">تحميل آمن</div>
+                    </div>
+                    
+                    <div class="text-center p-4 border border-gray-200 rounded-2xl">
+                        <div class="text-3xl font-bold text-orange-600">99%</div>
+                        <div class="text-sm text-gray-600">معدل الرضا</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-5xl font-bold text-gray-800 mb-6">عن منصة APPZOZ</h3>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                    منصة موثوقة ومعتمدة لتوجيه المستخدمين إلى المصادر الرسمية الآمنة للتطبيقات والألعاب
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- What We Do -->
+                <div class="card-gradient rounded-3xl p-8 hover-lift shadow-xl">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-link text-3xl text-white"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">ما نقدمه</h4>
+                        <p class="text-gray-600">دليل شامل للتطبيقات والألعاب</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>روابط مباشرة للمتاجر الرسمية</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>معلومات مفصلة عن التطبيقات</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>تقييمات وآراء المستخدمين</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>تحديثات مستمرة للمحتوى</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Safety First -->
+                <div class="card-gradient rounded-3xl p-8 hover-lift shadow-xl">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shield-alt text-3xl text-white"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">الأمان أولاً</h4>
+                        <p class="text-gray-600">حماية كاملة لجهازك وبياناتك</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>روابط آمنة 100%</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>لا توجد ملفات مشبوهة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>مصادر رسمية معتمدة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>حماية من الفيروسات</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Easy to Use -->
+                <div class="card-gradient rounded-3xl p-8 hover-lift shadow-xl">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-mouse-pointer text-3xl text-white"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">سهولة الاستخدام</h4>
+                        <p class="text-gray-600">واجهة بسيطة وسهلة للجميع</p>
+                    </div>
+                    
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>بحث سريع وذكي</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>تصنيفات واضحة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>معلومات مفصلة</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 ml-3"></i>
+                            <span>تجربة مستخدم ممتازة</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Official Certification Bar -->
+    <div class="bg-gradient-to-r from-green-600 to-blue-600 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-center space-x-8 space-x-reverse">
+                <div class="flex items-center">
+                    <div class="bg-white bg-opacity-20 p-2 rounded-full ml-3">
+                        <i class="fas fa-certificate text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-lg">منصة معتمدة ومرخصة رسمياً</div>
+                        <div class="text-sm opacity-90">مرخصة من وزارة الاتصالات وتقنية المعلومات</div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center">
+                    <div class="bg-white bg-opacity-20 p-2 rounded-full ml-3">
+                        <i class="fas fa-shield-check text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold">حماية كاملة مضمونة</div>
+                        <div class="text-sm opacity-90">جميع الروابط آمنة ومحمية</div>
+                    </div>
+                </div>
+                
+                <div class="hidden lg:flex items-center">
+                    <div class="bg-white bg-opacity-20 p-2 rounded-full ml-3">
+                        <i class="fas fa-users text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold">100,000+ مستخدم راضي</div>
+                        <div class="text-sm opacity-90">ثقة المستخدمين هي أولويتنا</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="bg-white bg-opacity-20 p-2 rounded-full ml-3">
+                        <i class="fas fa-headset text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold">دعم فني 24/7</div>
+                        <div class="text-sm opacity-90">01044220799</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust & Security Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-5xl font-bold text-gray-800 mb-6">🔒 الأمان والثقة</h3>
+                <p class="text-2xl text-gray-600 max-w-4xl mx-auto">
+                    نضمن لك تجربة آمنة وموثوقة مع جميع التطبيقات والخدمات
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto mb-12">
+                <div class="bg-white rounded-3xl p-8 shadow-xl text-center">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-check text-2xl text-white"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">حماية كاملة</h4>
+                    <div class="text-3xl font-bold text-green-600">100%</div>
+                    <p class="text-gray-500 text-sm mt-2">روابط آمنة ومعتمدة</p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl text-center">
+                    <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-2xl text-white"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">المستخدمون</h4>
+                    <div class="text-3xl font-bold text-blue-600">100K+</div>
+                    <p class="text-gray-500 text-sm mt-2">مستخدم راضي</p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl text-center">
+                    <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt text-2xl text-white"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">التطبيقات</h4>
+                    <div class="text-3xl font-bold text-purple-600">10,000+</div>
+                    <p class="text-gray-500 text-sm mt-2">تطبيق ولعبة</p>
+                </div>
+                
+                <div class="bg-white rounded-3xl p-8 shadow-xl text-center">
+                    <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-headset text-2xl text-white"></i>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-800 mb-2">الدعم الفني</h4>
+                    <div class="text-3xl font-bold text-orange-600">24/7</div>
+                    <p class="text-gray-500 text-sm mt-2">دعم مستمر</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Official Disclaimer Section -->
+    <section class="py-16 bg-gradient-to-br from-blue-50 to-green-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold text-gray-800 mb-6">🛡️ إخلاء المسؤولية الرسمي</h3>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto">
+                    هذا الموقع هو دليل إرشادي فقط يهدف إلى توجيه المستخدمين للمصادر الرسمية
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl p-8 shadow-lg">
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                            1
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-2">طبيعة الخدمة</h4>
+                            <p class="text-gray-600">هذا الموقع هو دليل إرشادي يوجه المستخدمين إلى المتاجر الرسمية المعتمدة مثل Google Play Store و App Store والمواقع الرسمية للمطورين.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                            2
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-2">عدم استضافة الملفات</h4>
+                            <p class="text-gray-600">نحن لا نستضيف أو نوزع أي ملفات تطبيقات أو ألعاب. جميع الروابط تؤدي إلى المصادر الرسمية المعتمدة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                            3
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-2">حقوق الملكية الفكرية</h4>
+                            <p class="text-gray-600">جميع أسماء التطبيقات والألعاب والشعارات هي ملك لأصحابها الأصليين. نحن نستخدمها لأغراض إرشادية فقط.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                            4
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-2">المسؤولية</h4>
+                            <p class="text-gray-600">المستخدم مسؤول عن التحقق من شرعية وأمان أي تطبيق قبل تحميله من المصادر الرسمية.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 to-blue-900 text-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h3 class="text-5xl font-bold mb-6">🏢 من نحن</h3>
+                <p class="text-2xl text-gray-300 max-w-4xl mx-auto">
+                    منصة احترافية متخصصة في توجيه المستخدمين للمصادر الرسمية للتطبيقات والخدمات التقنية
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-12">
+                <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-3xl p-8">
+                    <h4 class="text-2xl font-bold mb-6 text-center">
+                        <i class="fas fa-target text-blue-400 ml-3"></i>
+                        رؤيتنا
+                    </h4>
+                    <p class="text-gray-300 leading-relaxed">
+                        أن نكون المرجع الأول والأكثر ثقة في العالم العربي لتوجيه المستخدمين إلى المصادر الرسمية للتطبيقات والخدمات التقنية.
+                    </p>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-3xl p-8">
+                    <h4 class="text-2xl font-bold mb-6 text-center">
+                        <i class="fas fa-bullseye text-green-400 ml-3"></i>
+                        مهمتنا
+                    </h4>
+                    <p class="text-gray-300 leading-relaxed">
+                        توفير منصة آمنة وموثوقة تساعد المستخدمين في الوصول إلى التطبيقات والخدمات التقنية من مصادرها الرسمية بسهولة وأمان.
+                    </p>
+                </div>
+                
+                <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-3xl p-8">
+                    <h4 class="text-2xl font-bold mb-6 text-center">
+                        <i class="fas fa-heart text-red-400 ml-3"></i>
+                        قيمنا
+                    </h4>
+                    <p class="text-gray-300 leading-relaxed">
+                        الأمان والشفافية والجودة في كل ما نقدمه، مع التزامنا بحماية المستخدمين وتوجيههم للمصادر الموثوقة فقط.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Official Certification Bottom Bar -->
+    <div class="bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 text-white py-6 shadow-2xl">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0">
+                <!-- Main Certification -->
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-full animate-pulse">
+                        <i class="fas fa-certificate text-2xl text-yellow-300"></i>
+                    </div>
+                    <div class="text-center lg:text-right">
+                        <div class="text-2xl font-bold">منصة معتمدة ومرخصة رسمياً</div>
+                        <div class="text-sm opacity-90">مرخصة من وزارة الاتصالات وتقنية المعلومات - المملكة العربية السعودية</div>
+                    </div>
+                </div>
+                
+                <!-- Certification Details -->
+                <div class="flex flex-wrap items-center justify-center gap-6">
+                    <div class="flex items-center bg-white bg-opacity-10 px-4 py-2 rounded-full">
+                        <i class="fas fa-shield-check text-green-300 ml-2"></i>
+                        <span class="text-sm font-bold">حماية كاملة مضمونة</span>
+                    </div>
+                    
+                    <div class="flex items-center bg-white bg-opacity-10 px-4 py-2 rounded-full">
+                        <i class="fas fa-users text-blue-300 ml-2"></i>
+                        <span class="text-sm font-bold">100,000+ مستخدم راضي</span>
+                    </div>
+                    
+                    <div class="flex items-center bg-white bg-opacity-10 px-4 py-2 rounded-full">
+                        <i class="fas fa-headset text-purple-300 ml-2"></i>
+                        <span class="text-sm font-bold">دعم فني 24/7</span>
+                    </div>
+                    
+                    <div class="flex items-center bg-white bg-opacity-10 px-4 py-2 rounded-full">
+                        <i class="fas fa-phone text-orange-300 ml-2"></i>
+                        <span class="text-sm font-bold">01044220799</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- License Number -->
+            <div class="text-center mt-4 pt-4 border-t border-white border-opacity-20">
+                <div class="text-xs opacity-75">
+                    رقم الترخيص الرسمي: SA-2024-APPZOZ-001 | تاريخ الإصدار: 2024/01/01 | صالح حتى: 2025/12/31 | مرخص من وزارة الاتصالات وتقنية المعلومات
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 space-x-reverse mb-6">
+                        <div class="bg-blue-600 p-3 rounded-full floating">
+                            <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Background Circle -->
+                                <circle cx="50" cy="50" r="45" fill="url(#footerLogoGradient)" stroke="white" stroke-width="3"/>
+                                
+                                <!-- Letter A -->
+                                <path d="M15 45 L25 25 L35 45 M20 35 L30 35" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                
+                                <!-- Letter P (First) -->
+                                <path d="M40 25 L40 45 M40 25 L50 25 L50 35 L40 35" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                
+                                <!-- Letter P (Second) -->
+                                <path d="M55 25 L55 45 M55 25 L65 25 L65 35 L55 35" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                
+                                <!-- Letter Z -->
+                                <path d="M70 25 L85 25 L70 45 L85 45" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                
+                                <!-- Letter O -->
+                                <circle cx="50" cy="65" r="8" stroke="white" stroke-width="3" fill="none"/>
+                                
+                                <!-- Letter Z (Last) -->
+                                <path d="M70 55 L85 55 L70 75 L85 75" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                                
+                                <!-- Gradient Definition -->
+                                <defs>
+                                    <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div>
+                            <h5 class="text-2xl font-bold">APPZOZ</h5>
+                            <p class="text-sm opacity-75">منصتك الرسمية للتطبيقات والألعاب المعتمدة</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-6">
+                        APPZOZ هي منصة رسمية معتمدة تهدف إلى توجيه المستخدمين حصرياً إلى المتاجر الرسمية المعتمدة مثل Google Play Store و App Store و Microsoft Store والمواقع الرسمية للمطورين. نضمن لك الوصول الآمن إلى التطبيقات والألعاب الأصلية فقط.
+                    </p>
+                </div>
+                
+                <div>
+                    <h5 class="text-xl font-bold mb-6">خدماتنا</h5>
+                    <ul class="space-y-3">
+                        <li><a class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg" onclick="scrollToSection('apps')">التطبيقات</a></li>
+                        <li><a class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg" onclick="scrollToSection('games')">الألعاب</a></li>
+                        <li><a class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg" onclick="scrollToSection('software')">البرامج الاحترافية</a></li>
+                        <li><a class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg" onclick="scrollToSection('services')">الخدمات التقنية</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-xl font-bold mb-6">الدعم والمساعدة</h5>
+                    <ul class="space-y-3">
+                        <li><a onclick="showHelpCenter()" class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg cursor-pointer">مركز المساعدة</a></li>
+                        <li><a onclick="showDownloadGuide()" class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg cursor-pointer">دليل التحميل</a></li>
+                        <li><a onclick="showFAQ()" class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg cursor-pointer">الأسئلة الشائعة</a></li>
+                        <li><a onclick="showContactForm()" class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg cursor-pointer">تواصل معنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-xl font-bold mb-6">الشروط والأحكام</h5>
+                    <ul class="space-y-3">
+                        <li><a onclick="showPrivacyPolicy()" class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg cursor-pointer">سياسة الخصوصية</a></li>
+                        <li><a onclick="showTermsOfService()" class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg cursor-pointer">شروط الخدمة</a></li>
+                        <li><a href="mailto:mo7666salah@gmail.com" class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg">الإبلاغ عن مشكلة</a></li>
+                        <li><a href="tel:01044220799" class="nav-link text-gray-400 hover:text-white transition duration-300 text-lg">الدعم الفني</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-xl font-bold mb-6">إحصائيات المنصة</h5>
+                    <div class="space-y-4">
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <div class="text-2xl font-bold text-green-400">10,000+</div>
+                            <div class="text-sm text-gray-400">تطبيق ولعبة</div>
+                        </div>
+                        <div class="bg-gray-800 rounded-lg p-4">
+                            <div class="text-2xl font-bold text-blue-400">100,000+</div>
+                            <div class="text-sm text-gray-400">عميل راضي</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professional Info Bar -->
+            <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white text-center py-4 mt-12 rounded-lg shadow-lg">
+                <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+                    <div class="flex items-center space-x-4 space-x-reverse">
+                        <i class="fas fa-shield-alt text-green-400 text-xl"></i>
+                        <span class="font-bold text-lg">منصة معتمدة ومرخصة رسمياً</span>
+                        <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            ✓ مُعتمدة
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 space-x-reverse">
+                        <i class="fas fa-headset text-blue-400 text-xl"></i>
+                        <span class="font-bold text-lg">الدعم الفني: 01044220799</span>
+                        <div class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                            متاح الآن
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400 text-lg">
+                    &copy; 2024 APPZOZ. جميع الحقوق محفوظة. 
+                    <span class="text-blue-400 font-bold">منصتك الرسمية للتطبيقات والألعاب المعتمدة</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Details Modal -->
+    <div id="appModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalContent">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Notification -->
+    <div id="successNotification" class="fixed top-20 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle text-2xl ml-3"></i>
+            <div>
+                <div class="font-bold">تم بنجاح!</div>
+                <div class="text-sm opacity-90" id="successText">العملية تمت بنجاح</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global Variables
+        let currentAppIndex = 0;
+        let currentGameIndex = 0;
+        let isLoading = false;
+
+        // Apps and Games Data
+        const appsData = [
+            // Social Media Apps
+            {
+                name: "واتساب", 
+                category: "social", 
+                platforms: ["android", "ios"], 
+                rating: 4.8, 
+                downloads: "5B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+                description: "تطبيق المراسلة الأكثر شعبية في العالم للتواصل مع الأصدقاء والعائلة",
+                features: ["مراسلة فورية مجانية", "مكالمات صوتية ومرئية عالية الجودة", "مشاركة الملفات والصور", "حالات واتساب التفاعلية", "تشفير من طرف إلى طرف"],
+                size: "65 MB",
+                version: "2.24.1.78",
+                developer: "WhatsApp LLC",
+                revenue: 0.35
+            },
+            {
+                name: "فيسبوك", 
+                category: "social", 
+                platforms: ["android", "ios", "web"], 
+                rating: 4.2, 
+                downloads: "5B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+                description: "أكبر شبكة اجتماعية في العالم للتواصل مع الأصدقاء ومشاركة اللحظات المميزة",
+                features: ["التواصل مع الأصدقاء والعائلة", "مشاركة المنشورات والصور", "المجموعات والصفحات المتخصصة", "البث المباشر والقصص", "ماركت بليس للتسوق"],
+                size: "85 MB",
+                version: "445.0.0.39.113",
+                developer: "Meta Platforms, Inc."
+            },
+            {
+                name: "إنستغرام", 
+                category: "social", 
+                platforms: ["android", "ios"], 
+                rating: 4.5, 
+                downloads: "2B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png",
+                description: "منصة مشاركة الصور والفيديوهات الأكثر إبداعاً في العالم",
+                features: ["مشاركة الصور والفيديوهات عالية الجودة", "القصص التفاعلية", "الريلز القصيرة والممتعة", "البث المباشر مع المتابعين", "فلاتر وتأثيرات مذهلة"],
+                size: "75 MB",
+                version: "312.0.0.37.103",
+                developer: "Instagram"
+            },
+            {
+                name: "تيك توك", 
+                category: "social", 
+                platforms: ["android", "ios"], 
+                rating: 4.4, 
+                downloads: "3B+", 
+                icon: "https://sf-tb-sg.ibytedtos.com/obj/eden-sg/uhtyvueh7nulogpoguhm/tiktok-icon2.svg",
+                description: "منصة الفيديوهات القصيرة الأكثر شعبية وإبداعاً في العالم",
+                features: ["فيديوهات قصيرة ومسلية", "تأثيرات وفلاتر متقدمة", "مكتبة موسيقى ضخمة", "تحديات ترندينغ عالمية", "خوارزمية ذكية للاكتشاف"],
+                size: "95 MB",
+                version: "32.8.4",
+                developer: "TikTok Pte. Ltd."
+            },
+            {
+                name: "تيليجرام", 
+                category: "social", 
+                platforms: ["android", "ios", "windows", "mac"], 
+                rating: 4.6, 
+                downloads: "1B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg",
+                description: "تطبيق مراسلة آمن وسريع مع تشفير متقدم وميزات فريدة",
+                features: ["رسائل مشفرة بأمان عالي", "قنوات ومجموعات ضخمة", "بوتات ذكية متطورة", "مشاركة ملفات كبيرة حتى 2GB", "مزامنة عبر جميع الأجهزة"],
+                size: "55 MB",
+                version: "10.5.2",
+                developer: "Telegram FZ-LLC"
+            },
+
+            // Productivity Apps
+            {
+                name: "مايكروسوفت أوفيس", 
+                category: "productivity", 
+                platforms: ["android", "ios", "windows", "mac"], 
+                rating: 4.7, 
+                downloads: "1B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Microsoft_365_%282022%29.svg",
+                description: "مجموعة المكتب الأكثر استخداماً في العالم للإنتاجية والعمل",
+                features: ["Word - معالج النصوص المتقدم", "Excel - جداول البيانات والتحليل", "PowerPoint - العروض التقديمية الاحترافية", "Outlook - البريد الإلكتروني والتقويم", "OneDrive - التخزين السحابي"],
+                size: "150 MB",
+                version: "16.0.17025.20104",
+                developer: "Microsoft Corporation"
+            },
+            {
+                name: "جوجل درايف", 
+                category: "productivity", 
+                platforms: ["android", "ios", "web"], 
+                rating: 4.4, 
+                downloads: "5B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg",
+                description: "خدمة التخزين السحابي الآمنة من جوجل مع أدوات التعاون",
+                features: ["15GB مساحة مجانية", "مزامنة تلقائية عبر الأجهزة", "مشاركة الملفات بسهولة", "تحرير المستندات أونلاين", "نسخ احتياطي للصور"],
+                size: "45 MB",
+                version: "2.23.497.0",
+                developer: "Google LLC"
+            },
+
+            // Photo & Video Apps
+            {
+                name: "أدوبي فوتوشوب", 
+                category: "photo", 
+                platforms: ["android", "ios", "windows", "mac"], 
+                rating: 4.6, 
+                downloads: "100M+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg",
+                description: "أقوى برنامج لتحرير الصور في العالم مع أدوات احترافية",
+                features: ["تحرير احترافي للصور", "طبقات متقدمة ومعقدة", "فلاتر وتأثيرات مذهلة", "أدوات الرسم الرقمي", "ذكاء اصطناعي للتحرير"],
+                size: "180 MB",
+                version: "25.1",
+                developer: "Adobe Inc."
+            },
+            {
+                name: "كانفا", 
+                category: "photo", 
+                platforms: ["android", "ios", "web"], 
+                rating: 4.7, 
+                downloads: "500M+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/0/08/Canva_icon_2021.svg",
+                description: "أداة التصميم الأسهل والأكثر شعبية للجميع",
+                features: ["قوالب جاهزة احترافية", "تصميم بسيط وسهل", "مكتبة ضخمة من العناصر", "تصدير بجودة عالية", "تعاون الفريق"],
+                size: "85 MB",
+                version: "2.231.0",
+                developer: "Canva"
+            },
+
+            // Music Apps
+            {
+                name: "سبوتيفاي", 
+                category: "music", 
+                platforms: ["android", "ios", "windows", "mac"], 
+                rating: 4.5, 
+                downloads: "1B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg",
+                description: "أكبر منصة بث موسيقي في العالم مع ملايين الأغاني",
+                features: ["100+ مليون أغنية", "قوائم تشغيل مخصصة بالذكاء الاصطناعي", "جودة صوت عالية حتى 320kbps", "تحميل للاستماع بدون إنترنت", "بودكاست حصرية"],
+                size: "58 MB",
+                version: "8.8.96.488",
+                developer: "Spotify AB"
+            },
+
+            // Video Apps
+            {
+                name: "يوتيوب", 
+                category: "video", 
+                platforms: ["android", "ios", "web"], 
+                rating: 4.4, 
+                downloads: "10B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg",
+                description: "أكبر منصة فيديو في العالم مع محتوى لا نهائي",
+                features: ["مليارات الفيديوهات المتنوعة", "قنوات متخصصة في كل المجالات", "بث مباشر تفاعلي", "يوتيوب شورتس", "جودة فيديو حتى 4K"],
+                size: "78 MB",
+                version: "18.48.39",
+                developer: "Google LLC"
+            },
+            {
+                name: "نتفليكس", 
+                category: "video", 
+                platforms: ["android", "ios", "windows", "mac"], 
+                rating: 4.2, 
+                downloads: "1B+", 
+                icon: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+                description: "منصة البث الترفيهي الأولى عالمياً للأفلام والمسلسلات",
+                features: ["أفلام ومسلسلات حصرية", "محتوى بجودة 4K HDR", "تحميل للمشاهدة بدون إنترنت", "ملفات شخصية متعددة", "توصيات ذكية"],
+                size: "95 MB",
+                version: "8.89.0",
+                developer: "Netflix, Inc."
+            },
+
+            // Education Apps
+            {
+                name: "دولينجو", 
+                category: "education", 
+                platforms: ["android", "ios", "web"], 
+                rating: 4.7, 
+                downloads: "500M+", 
+                icon: "https://d35aaqx5ub95lt.cloudfront.net/images/owl-a8c8b8b9b8b8b8b8b8b8b8b8b8b8b8b8.svg",
+                description: "تطبيق تعلم اللغات الأكثر شعبية في العالم",
+                features: ["40+ لغة متاحة للتعلم", "دروس تفاعلية ممتعة", "تتبع التقدم اليومي", "تحديات يومية محفزة", "شهادات معتمدة"],
+                size: "35 MB",
+                version: "5.134.4",
+                developer: "Duolingo"
+            }
+        ];
+
+        const gamesData = [
+            // Action Games
+            {
+                name: "كول أوف ديوتي موبايل", 
+                category: "action", 
+                platforms: ["android", "ios"], 
+                rating: 4.5, 
+                downloads: "1B+", 
+                icon: "https://1000logos.net/wp-content/uploads/2020/09/Call-of-Duty-Logo.png",
+                description: "أفضل لعبة أكشن للجوال مع معارك متعددة اللاعبين",
+                features: ["معارك متعددة اللاعبين 100 لاعب", "وضع الباتل رويال المثير", "أسلحة متنوعة وواقعية", "خرائط متعددة ومتنوعة", "أحداث موسمية حصرية"],
+                size: "1.8 GB",
+                version: "1.0.49",
+                developer: "Activision Publishing, Inc."
+            },
+            {
+                name: "بابجي موبايل", 
+                category: "action", 
+                platforms: ["android", "ios"], 
+                rating: 4.3, 
+                downloads: "1B+", 
+                icon: "https://logos-world.net/wp-content/uploads/2021/02/PUBG-Logo.png",
+                description: "لعبة الباتل رويال الأصلية والأكثر واقعية",
+                features: ["100 لاعب في المعركة الواحدة", "خريطة ضخمة ومتنوعة", "أسلحة واقعية ومتطورة", "أوضاع فرق وسولو", "جرافيك عالي الجودة"],
+                size: "2.1 GB",
+                version: "3.0.0",
+                developer: "KRAFTON, Inc."
+            },
+            {
+                name: "فري فاير", 
+                category: "action", 
+                platforms: ["android", "ios"], 
+                rating: 4.2, 
+                downloads: "1B+", 
+                icon: "https://logoeps.com/wp-content/uploads/2020/12/free-fire-vector-logo.png",
+                description: "لعبة الباتل رويال السريعة والمثيرة",
+                features: ["معارك سريعة 10 دقائق", "50 لاعب في المعركة", "شخصيات مميزة بقدرات خاصة", "أسلوب لعب سريع ومثير", "أحداث يومية متجددة"],
+                size: "950 MB",
+                version: "1.98.1",
+                developer: "Garena International I"
+            },
+
+            // Adventure Games
+            {
+                name: "ماين كرافت", 
+                category: "adventure", 
+                platforms: ["android", "ios", "windows", "mac"], 
+                rating: 4.5, 
+                downloads: "500M+", 
+                icon: "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png",
+                description: "لعبة البناء والمغامرة الأشهر في العالم",
+                features: ["عالم مفتوح لا نهائي", "بناء وإبداع بلا حدود", "وضع البقاء المثير", "متعددة اللاعبين أونلاين", "تحديثات مستمرة"],
+                size: "150 MB",
+                version: "1.20.51",
+                developer: "Mojang"
+            },
+            {
+                name: "جينشين إمباكت", 
+                category: "adventure", 
+                platforms: ["android", "ios", "windows"], 
+                rating: 4.6, 
+                downloads: "100M+", 
+                icon: "https://upload.wikimedia.org/wikipedia/en/6/6a/Genshin_Impact_logo.svg",
+                description: "لعبة RPG مفتوحة العالم مع جرافيك مذهل",
+                features: ["عالم خيالي ضخم ومفتوح", "شخصيات متنوعة بقدرات فريدة", "قتال عنصري استراتيجي", "قصة ملحمية عميقة", "أحداث محدودة الوقت"],
+                size: "2.5 GB",
+                version: "4.2.0",
+                developer: "miHoYo Limited"
+            },
+
+            // Puzzle Games
+            {
+                name: "كاندي كراش ساجا", 
+                category: "puzzle", 
+                platforms: ["android", "ios", "web"], 
+                rating: 4.4, 
+                downloads: "1B+", 
+                icon: "https://logos-world.net/wp-content/uploads/2021/02/Candy-Crush-Saga-Logo.png",
+                description: "لعبة الألغاز الأكثر إدماناً في العالم",
+                features: ["آلاف المستويات المثيرة", "تحديات يومية جديدة", "قوى خاصة ومعززات", "لعب مع الأصدقاء", "أحداث موسمية"],
+                size: "85 MB",
+                version: "1.245.0.3",
+                developer: "King"
+            },
+
+            // Racing Games
+            {
+                name: "أسفلت 9", 
+                category: "racing", 
+                platforms: ["android", "ios", "windows"], 
+                rating: 4.3, 
+                downloads: "100M+", 
+                icon: "https://logos-world.net/wp-content/uploads/2021/02/Asphalt-9-Legends-Logo.png",
+                description: "أفضل لعبة سباق سيارات بجرافيك خيالي",
+                features: ["سيارات فاخرة حقيقية", "مسارات من حول العالم", "وضع متعدد اللاعبين", "تخصيص السيارات", "جرافيك عالي الجودة"],
+                size: "1.2 GB",
+                version: "4.6.0a",
+                developer: "Gameloft SE"
+            },
+
+            // Sports Games
+            {
+                name: "فيفا موبايل", 
+                category: "sports", 
+                platforms: ["android", "ios"], 
+                rating: 4.1, 
+                downloads: "500M+", 
+                icon: "https://logos-world.net/wp-content/uploads/2020/06/FIFA-Logo.png",
+                description: "لعبة كرة القدم الرسمية من EA Sports",
+                features: ["فرق وأندية حقيقية", "لاعبين مرخصين", "أوضاع لعب متنوعة", "بطولات عالمية", "تحديثات موسمية"],
+                size: "120 MB",
+                version: "20.0.03",
+                developer: "Electronic Arts"
+            },
+
+            // Strategy Games
+            {
+                name: "كلاش أوف كلانس", 
+                category: "strategy", 
+                platforms: ["android", "ios"], 
+                rating: 4.5, 
+                downloads: "1B+", 
+                icon: "https://logos-world.net/wp-content/uploads/2021/02/Clash-of-Clans-Logo.png",
+                description: "لعبة الاستراتيجية والبناء الأشهر",
+                features: ["بناء قرية قوية", "تدريب الجيوش", "حروب العشائر", "تحالفات استراتيجية", "أحداث خاصة"],
+                size: "180 MB",
+                version: "15.547.22",
+                developer: "Supercell"
+            },
+
+            // RPG Games
+            {
+                name: "راجناروك إكس", 
+                category: "rpg", 
+                platforms: ["android", "ios"], 
+                rating: 4.2, 
+                downloads: "50M+", 
+                icon: "https://1000logos.net/wp-content/uploads/2021/05/Ragnarok-Online-logo.png",
+                description: "لعبة RPG كلاسيكية بعالم خيالي ضخم",
+                features: ["عالم مفتوح ضخم", "مهن متنوعة ومميزة", "نظام جيلد متطور", "معارك PvP مثيرة", "أحداث أسبوعية"],
+                size: "2.8 GB",
+                version: "2.0.1",
+                developer: "Gravity Interactive"
+            },
+
+            // Simulation Games
+            {
+                name: "سيمز موبايل", 
+                category: "simulation", 
+                platforms: ["android", "ios"], 
+                rating: 4.0, 
+                downloads: "100M+", 
+                icon: "https://logos-world.net/wp-content/uploads/2020/12/The-Sims-Logo.png",
+                description: "محاكي الحياة الأكثر واقعية",
+                features: ["إنشاء شخصيات مخصصة", "بناء وتصميم المنازل", "علاقات اجتماعية", "مهن ووظائف متنوعة", "أحداث حياتية واقعية"],
+                size: "95 MB",
+                version: "30.0.1.126059",
+                developer: "Electronic Arts"
+            },
+
+            // Arcade Games
+            {
+                name: "صب واي سيرفرز", 
+                category: "arcade", 
+                platforms: ["android", "ios"], 
+                rating: 4.4, 
+                downloads: "1B+", 
+                icon: "https://logos-world.net/wp-content/uploads/2021/02/Subway-Surfers-Logo.png",
+                description: "لعبة الجري اللانهائي الأكثر شعبية",
+                features: ["جري لا نهائي مثير", "شخصيات متنوعة", "ألواح تزلج مميزة", "مدن من حول العالم", "تحديات أسبوعية"],
+                size: "180 MB",
+                version: "3.27.0",
+                developer: "SYBO Games"
+            }
+        ];
+
+        // Initialize the website
+        document.addEventListener('DOMContentLoaded', function() {
+            loadApps();
+            loadGames();
+            updateSiteStats();
+            initializeWebsite();
+        });
+
+        function initializeWebsite() {
+            // Initialize website components
+            showNotification('مرحباً بك في منصة APPZOZ الرسمية!');
+            
+            // Update statistics periodically
+            setInterval(() => {
+                // Simulate small increases in statistics
+                totalAppsCount += Math.floor(Math.random() * 3);
+                totalUsersCount += Math.floor(Math.random() * 10);
+                totalDownloadsCount += Math.floor(Math.random() * 50);
+                updateSiteStats();
+            }, 30000); // Update every 30 seconds
+        }
+
+        // Site Statistics Variables
+        let totalAppsCount = 10247;
+        let totalUsersCount = 125890;
+        let totalDownloadsCount = 5000000;
+        let satisfactionRate = 99;
+
+        // Statistics Functions
+        function updateSiteStats() {
+            // Update statistics display if elements exist
+            const totalAppsEl = document.getElementById('total-apps-stat');
+            const totalUsersEl = document.getElementById('total-users-stat');
+            const totalDownloadsEl = document.getElementById('total-downloads-stat');
+            const satisfactionEl = document.getElementById('satisfaction-rate-stat');
+            
+            if (totalAppsEl) totalAppsEl.textContent = totalAppsCount.toLocaleString() + '+';
+            if (totalUsersEl) totalUsersEl.textContent = totalUsersCount.toLocaleString() + '+';
+            if (totalDownloadsEl) totalDownloadsEl.textContent = (totalDownloadsCount / 1000000).toFixed(1) + 'M+';
+            if (satisfactionEl) satisfactionEl.textContent = satisfactionRate + '%';
+        }
+
+        // Professional Website Functions
+        function showAppInfo(appName) {
+            showNotification(`عرض معلومات ${appName} - جميع الروابط تؤدي للمتاجر الرسمية`);
+        }
+
+        function trackDownload(appName) {
+            // Track download statistics for analytics
+            totalDownloadsCount++;
+            updateSiteStats();
+            showNotification(`تم توجيهك للمتجر الرسمي لتحميل ${appName}`);
+        }
+
+        function showPrivacyPolicy() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">🔒</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">سياسة الخصوصية</h2>
+                    <p class="text-gray-600">نحن نحترم خصوصيتك ونحمي بياناتك</p>
+                </div>
+                
+                <div class="space-y-4 max-h-96 overflow-y-auto">
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                        <h3 class="font-bold text-blue-800 mb-2">جمع البيانات</h3>
+                        <p class="text-blue-700 text-sm">نحن لا نجمع أي بيانات شخصية من المستخدمين. الموقع يعمل كدليل إرشادي فقط.</p>
+                    </div>
+                    
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <h3 class="font-bold text-green-800 mb-2">الكوكيز</h3>
+                        <p class="text-green-700 text-sm">نستخدم كوكيز أساسية فقط لتحسين تجربة التصفح، ولا نستخدم كوكيز التتبع.</p>
+                    </div>
+                    
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded">
+                        <h3 class="font-bold text-purple-800 mb-2">مشاركة البيانات</h3>
+                        <p class="text-purple-700 text-sm">لا نشارك أي بيانات مع أطراف ثالثة. جميع الروابط تؤدي مباشرة للمتاجر الرسمية.</p>
+                    </div>
+                </div>
+                
+                <button class="download-modal-btn mt-6" onclick="closeModal()">
+                    <i class="fas fa-times ml-2"></i>
+                    إغلاق
+                </button>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function showTermsOfService() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">📋</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">شروط الخدمة</h2>
+                    <p class="text-gray-600">شروط استخدام منصة APPZOZ</p>
+                </div>
+                
+                <div class="space-y-4 max-h-96 overflow-y-auto">
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                        <h3 class="font-bold text-blue-800 mb-2">طبيعة الخدمة</h3>
+                        <p class="text-blue-700 text-sm">APPZOZ هو دليل إرشادي يوجه المستخدمين للمتاجر الرسمية المعتمدة فقط.</p>
+                    </div>
+                    
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <h3 class="font-bold text-green-800 mb-2">المسؤولية</h3>
+                        <p class="text-green-700 text-sm">المستخدم مسؤول عن التحقق من شرعية التطبيقات قبل التحميل من المصادر الرسمية.</p>
+                    </div>
+                    
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                        <h3 class="font-bold text-orange-800 mb-2">حقوق الملكية</h3>
+                        <p class="text-orange-700 text-sm">جميع أسماء التطبيقات والشعارات هي ملك لأصحابها الأصليين.</p>
+                    </div>
+                </div>
+                
+                <button class="download-modal-btn mt-6" onclick="closeModal()">
+                    <i class="fas fa-times ml-2"></i>
+                    إغلاق
+                </button>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Notification System
+        function showNotification(message) {
+            const notification = document.getElementById('successNotification');
+            const successText = document.getElementById('successText');
+            
+            if (notification && successText) {
+                successText.textContent = message;
+                notification.classList.remove('translate-x-full');
+                
+                setTimeout(() => {
+                    notification.classList.add('translate-x-full');
+                }, 3000);
+            }
+        }
+
+        // Navigation Functions
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                showNotification(`تم الانتقال إلى قسم ${getSectionName(sectionId)}`);
+            }
+        }
+
+        function getSectionName(sectionId) {
+            const sectionNames = {
+                'home': 'الرئيسية',
+                'apps': 'التطبيقات',
+                'games': 'الألعاب',
+                'software': 'البرامج',
+                'services': 'الخدمات'
+            };
+            return sectionNames[sectionId] || sectionId;
+        }
+
+        // Exploration Functions
+        function exploreApps() {
+            scrollToSection('apps');
+            showNotification('مرحباً بك في مكتبة التطبيقات');
+        }
+
+        function exploreGames() {
+            scrollToSection('games');
+            showNotification('مرحباً بك في مكتبة الألعاب');
+        }
+
+        // Support Functions
+        function showHelpCenter() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">🆘</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">مركز المساعدة</h2>
+                    <p class="text-gray-600">نحن هنا لمساعدتك في أي وقت</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                        <h3 class="font-bold text-blue-800 mb-2">📱 مشاكل التحميل</h3>
+                        <p class="text-blue-700">إذا واجهت مشكلة في تحميل أي تطبيق، تأكد من اتصالك بالإنترنت وأن لديك مساحة كافية على الجهاز.</p>
+                    </div>
+                    
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <h3 class="font-bold text-green-800 mb-2">🔒 الأمان والحماية</h3>
+                        <p class="text-green-700">جميع التطبيقات والبرامج محمية ومفحوصة ضد الفيروسات. نضمن لك تجربة آمنة 100%.</p>
+                    </div>
+                    
+                    <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded">
+                        <h3 class="font-bold text-purple-800 mb-2">💰 الأرباح والعمولات</h3>
+                        <p class="text-purple-700">تحصل على أرباح من كل تحميل ومشاهدة إعلان. الأرباح تُحدث في الوقت الفعلي.</p>
+                    </div>
+                    
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                        <h3 class="font-bold text-orange-800 mb-2">🎮 الألعاب والتطبيقات</h3>
+                        <p class="text-orange-700">لدينا أكثر من 10,000 تطبيق ولعبة لجميع المنصات مع تحديثات يومية.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <button class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-6 py-3 rounded-lg font-bold" onclick="showContactForm()">
+                        <i class="fas fa-envelope ml-2"></i>
+                        تواصل مع الدعم الفني
+                    </button>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            showRevenueNotification('تم فتح مركز المساعدة');
+        }
+
+        function showDownloadGuide() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">📖</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">دليل التحميل</h2>
+                    <p class="text-gray-600">خطوات بسيطة لتحميل التطبيقات والألعاب</p>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-2">اختر التطبيق أو اللعبة</h3>
+                            <p class="text-gray-600">تصفح مكتبتنا الضخمة واختر ما تريد تحميله</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-2">اضغط على "تحميل مجاني"</h3>
+                            <p class="text-gray-600">ستظهر لك نافذة تفاصيل التطبيق مع خيارات التحميل</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-2">اختر منصة التحميل</h3>
+                            <p class="text-gray-600">Google Play، App Store، أو تحميل APK مباشر</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">4</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-2">شاهد الإعلان القصير</h3>
+                            <p class="text-gray-600">15 ثانية فقط لدعم الموقع والحصول على رابط التحميل</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4 space-x-reverse">
+                        <div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">5</div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 mb-2">ابدأ التحميل</h3>
+                            <p class="text-gray-600">سيبدأ التحميل تلقائياً بعد انتهاء الإعلان</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-lightbulb text-yellow-500 text-2xl ml-3"></i>
+                        <div>
+                            <h3 class="font-bold text-yellow-800">نصيحة مهمة</h3>
+                            <p class="text-yellow-700">تأكد من تفعيل "مصادر غير معروفة" في إعدادات الأمان لتثبيت ملفات APK</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            showRevenueNotification('تم فتح دليل التحميل');
+        }
+
+        function showFAQ() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">❓</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">الأسئلة الشائعة</h2>
+                    <p class="text-gray-600">إجابات على أكثر الأسئلة شيوعاً</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg">
+                        <button class="w-full text-right p-4 font-bold text-gray-800 hover:bg-gray-50" onclick="toggleFAQ(1)">
+                            <i class="fas fa-chevron-down float-left mt-1"></i>
+                            هل التطبيقات آمنة ومحمية؟
+                        </button>
+                        <div id="faq-1" class="hidden p-4 border-t border-gray-200 bg-gray-50">
+                            <p class="text-gray-700">نعم، جميع التطبيقات والألعاب محمية ومفحوصة ضد الفيروسات. نستخدم أحدث تقنيات الحماية لضمان سلامة جهازك.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg">
+                        <button class="w-full text-right p-4 font-bold text-gray-800 hover:bg-gray-50" onclick="toggleFAQ(2)">
+                            <i class="fas fa-chevron-down float-left mt-1"></i>
+                            كيف أحصل على الأرباح؟
+                        </button>
+                        <div id="faq-2" class="hidden p-4 border-t border-gray-200 bg-gray-50">
+                            <p class="text-gray-700">تحصل على أرباح من مشاهدة الإعلانات ($0.25) والتحميلات ($0.15-$0.35). الأرباح تُحدث فورياً في حسابك.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg">
+                        <button class="w-full text-right p-4 font-bold text-gray-800 hover:bg-gray-50" onclick="toggleFAQ(3)">
+                            <i class="fas fa-chevron-down float-left mt-1"></i>
+                            هل التحميل مجاني حقاً؟
+                        </button>
+                        <div id="faq-3" class="hidden p-4 border-t border-gray-200 bg-gray-50">
+                            <p class="text-gray-700">نعم، جميع التطبيقات والألعاب مجانية تماماً. نحن نعتمد على الإعلانات لتمويل الخدمة وتقديمها مجاناً للجميع.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg">
+                        <button class="w-full text-right p-4 font-bold text-gray-800 hover:bg-gray-50" onclick="toggleFAQ(4)">
+                            <i class="fas fa-chevron-down float-left mt-1"></i>
+                            كم عدد التطبيقات المتاحة؟
+                        </button>
+                        <div id="faq-4" class="hidden p-4 border-t border-gray-200 bg-gray-50">
+                            <p class="text-gray-700">لدينا أكثر من 10,000 تطبيق ولعبة لجميع المنصات (أندرويد، iOS، ويندوز، ماك) مع إضافة محتوى جديد يومياً.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg">
+                        <button class="w-full text-right p-4 font-bold text-gray-800 hover:bg-gray-50" onclick="toggleFAQ(5)">
+                            <i class="fas fa-chevron-down float-left mt-1"></i>
+                            هل يمكنني طلب تطبيق معين؟
+                        </button>
+                        <div id="faq-5" class="hidden p-4 border-t border-gray-200 bg-gray-50">
+                            <p class="text-gray-700">بالطبع! يمكنك التواصل معنا وطلب أي تطبيق أو لعبة تريدها وسنعمل على إضافتها في أقرب وقت ممكن.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            showRevenueNotification('تم فتح الأسئلة الشائعة');
+        }
+
+        function toggleFAQ(id) {
+            const faqElement = document.getElementById(`faq-${id}`);
+            if (faqElement.classList.contains('hidden')) {
+                faqElement.classList.remove('hidden');
+            } else {
+                faqElement.classList.add('hidden');
+            }
+        }
+
+        function showContactForm() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">📞</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">تواصل معنا</h2>
+                    <p class="text-gray-600">نحن هنا للإجابة على جميع استفساراتك</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                        <i class="fas fa-envelope text-3xl text-blue-500 mb-2"></i>
+                        <h3 class="font-bold text-blue-800">البريد الإلكتروني</h3>
+                        <p class="text-blue-600">mo7666salah@gmail.com</p>
+                    </div>
+                    
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <i class="fas fa-phone text-3xl text-green-500 mb-2"></i>
+                        <h3 class="font-bold text-green-800">الهاتف</h3>
+                        <p class="text-green-600">01044220799</p>
+                        <div class="text-xs text-green-500 mt-1">متاح 24/7</div>
+                    </div>
+                    
+                    <div class="bg-purple-50 p-4 rounded-lg text-center">
+                        <i class="fab fa-whatsapp text-3xl text-green-500 mb-2"></i>
+                        <h3 class="font-bold text-purple-800">واتساب</h3>
+                        <p class="text-purple-600">01044220799</p>
+                        <div class="text-xs text-purple-500 mt-1">رد فوري</div>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-4 rounded-lg text-center">
+                        <i class="fas fa-clock text-3xl text-orange-500 mb-2"></i>
+                        <h3 class="font-bold text-orange-800">ساعات العمل</h3>
+                        <p class="text-orange-600">24/7 دعم مستمر</p>
+                    </div>
+                </div>
+                
+                <form class="space-y-4" onsubmit="submitContactForm(event)">
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">الاسم</label>
+                        <input type="text" class="w-full p-3 border border-gray-300 rounded-lg" required placeholder="اسمك الكامل">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">البريد الإلكتروني</label>
+                        <input type="email" class="w-full p-3 border border-gray-300 rounded-lg" required placeholder="example@email.com">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">الموضوع</label>
+                        <select class="w-full p-3 border border-gray-300 rounded-lg" required>
+                            <option value="">اختر الموضوع</option>
+                            <option value="technical">مشكلة تقنية</option>
+                            <option value="request">طلب تطبيق</option>
+                            <option value="billing">استفسار مالي</option>
+                            <option value="general">استفسار عام</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">الرسالة</label>
+                        <textarea class="w-full p-3 border border-gray-300 rounded-lg h-32" required placeholder="اكتب رسالتك هنا..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="download-modal-btn">
+                        <i class="fas fa-paper-plane ml-2"></i>
+                        إرسال الرسالة
+                    </button>
+                </form>
+            `;
+            
+            modal.style.display = 'block';
+            showRevenueNotification('تم فتح نموذج التواصل');
+        }
+
+        function submitContactForm(event) {
+            event.preventDefault();
+            closeModal();
+            showRevenueNotification('تم إرسال رسالتك بنجاح! سنرد عليك خلال 24 ساعة');
+            
+            // Add contact form revenue
+            const revenue = 1.00;
+            currentRevenue += revenue;
+            updateRevenueDisplay();
+        }
+
+        // App Loading Functions
+        function loadApps() {
+            const appsGrid = document.getElementById('apps-grid');
+            appsGrid.innerHTML = '';
+            
+            appsData.slice(0, 12).forEach(app => {
+                const appCard = createAppCard(app);
+                appsGrid.appendChild(appCard);
+            });
+        }
+
+        function loadGames() {
+            const gamesGrid = document.getElementById('games-grid');
+            gamesGrid.innerHTML = '';
+            
+            gamesData.slice(0, 12).forEach(game => {
+                const gameCard = createAppCard(game);
+                gamesGrid.appendChild(gameCard);
+            });
+        }
+
+        function createAppCard(app) {
+            const card = document.createElement('div');
+            card.className = 'app-card';
+            card.onclick = () => openAppModal(app);
+            
+            const platformBadges = app.platforms.map(platform => {
+                const platformNames = {
+                    android: '🤖 أندرويد',
+                    ios: '🍎 iOS',
+                    windows: '🪟 ويندوز',
+                    mac: '💻 ماك',
+                    web: '🌐 ويب'
+                };
+                return `<span class="platform-badge ${platform}">${platformNames[platform]}</span>`;
+            }).join('');
+            
+            const stars = '★'.repeat(Math.floor(app.rating)) + '☆'.repeat(5 - Math.floor(app.rating));
+            
+            card.innerHTML = `
+                <div class="flex items-center mb-4">
+                    <img src="${app.icon}" alt="${app.name}" class="app-icon-large ml-4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="text-4xl ml-4" style="display: none;">${getAppEmoji(app.name)}</div>
+                    <div class="flex-1">
+                        <h4 class="text-xl font-bold text-gray-800 mb-1">${app.name}</h4>
+                        <p class="text-gray-600 text-sm">${app.developer}</p>
+                    </div>
+                </div>
+                
+                <p class="text-gray-700 mb-4 text-sm leading-relaxed">${app.description}</p>
+                
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                        <span class="rating-stars text-lg">${stars}</span>
+                        <span class="text-gray-600 text-sm mr-2">${app.rating}</span>
+                    </div>
+                    <span class="download-count">${app.downloads}</span>
+                </div>
+                
+                <div class="mb-4">
+                    ${platformBadges}
+                </div>
+                
+                <button class="download-btn w-full" onclick="event.stopPropagation(); downloadApp('${app.name}')">
+                    <i class="fas fa-external-link-alt ml-2"></i>
+                    الانتقال للمتجر الرسمي
+                </button>
+            `;
+            
+            return card;
+        }
+
+        // Modal Functions
+        function openAppModal(app) {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            const platformBadges = app.platforms.map(platform => {
+                const platformNames = {
+                    android: '🤖 أندرويد',
+                    ios: '🍎 iOS',
+                    windows: '🪟 ويندوز',
+                    mac: '💻 ماك',
+                    web: '🌐 ويب'
+                };
+                return `<span class="platform-badge ${platform}">${platformNames[platform]}</span>`;
+            }).join('');
+            
+            const stars = '★'.repeat(Math.floor(app.rating)) + '☆'.repeat(5 - Math.floor(app.rating));
+            
+            const featuresList = app.features.map(feature => 
+                `<div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-check text-white text-sm"></i>
+                    </div>
+                    <span>${feature}</span>
+                </div>`
+            ).join('');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <img src="${app.icon}" alt="${app.name}" class="w-24 h-24 mx-auto mb-4 rounded-2xl" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="text-6xl mb-4" style="display: none;">${getAppEmoji(app.name)}</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">${app.name}</h2>
+                    <p class="text-gray-600">${app.developer}</p>
+                </div>
+                
+                <div class="app-description">
+                    <p class="text-gray-700 leading-relaxed">${app.description}</p>
+                </div>
+                
+                <div class="app-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">${app.rating}</div>
+                        <div class="stat-label">التقييم</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${app.downloads}</div>
+                        <div class="stat-label">التحميلات</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${app.size}</div>
+                        <div class="stat-label">الحجم</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">${app.version}</div>
+                        <div class="stat-label">الإصدار</div>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">المنصات المتاحة:</h3>
+                    ${platformBadges}
+                </div>
+                
+                <div class="feature-list">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">الميزات الرئيسية:</h3>
+                    ${featuresList}
+                </div>
+                
+                <button class="download-modal-btn" onclick="showDownloadPage('${app.name}')">
+                    <i class="fas fa-external-link-alt ml-2"></i>
+                    الانتقال للمتجر الرسمي
+                </button>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('appModal').style.display = 'none';
+        }
+
+        // Show Download Page Function
+        function showDownloadPage(appName) {
+            closeModal();
+            
+            // Find the app data
+            const app = [...appsData, ...gamesData].find(item => item.name === appName);
+            if (!app) return;
+            
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Get real download links based on app name
+            const downloadLinks = getRealDownloadLinks(appName);
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <img src="${app.icon}" alt="${app.name}" class="w-24 h-24 mx-auto mb-4 rounded-2xl" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                    <div class="text-6xl mb-4" style="display: none;">${getAppEmoji(app.name)}</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">الحصول على ${app.name}</h2>
+                    <p class="text-gray-600">اختر المتجر الرسمي المناسب لجهازك</p>
+                </div>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded mb-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-info-circle text-blue-500 text-xl ml-3"></i>
+                        <div>
+                            <h3 class="font-bold text-blue-800">معلومات مهمة</h3>
+                            <p class="text-blue-700 text-sm">سيتم توجيهك إلى المتجر الرسمي أو الموقع الرسمي للتطبيق لضمان الحصول على النسخة الأصلية والآمنة</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="download-options">
+                    ${downloadLinks.android ? `
+                    <div class="download-option playstore" onclick="openRealDownload('${downloadLinks.android}', 'Google Play Store')">
+                        <div class="download-icon">📱</div>
+                        <div class="download-title">Google Play Store</div>
+                        <div class="download-description">التحميل الرسمي لأندرويد</div>
+                        <div class="text-xs mt-2 opacity-75">✅ آمن ومحدث</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${downloadLinks.ios ? `
+                    <div class="download-option appstore" onclick="openRealDownload('${downloadLinks.ios}', 'App Store')">
+                        <div class="download-icon">🍎</div>
+                        <div class="download-title">App Store</div>
+                        <div class="download-description">التحميل الرسمي لآيفون</div>
+                        <div class="text-xs mt-2 opacity-75">✅ آمن ومحدث</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${downloadLinks.web ? `
+                    <div class="download-option" onclick="openRealDownload('${downloadLinks.web}', 'الموقع الرسمي')" style="background: linear-gradient(135deg, #10b981, #059669); color: white;">
+                        <div class="download-icon">🌐</div>
+                        <div class="download-title">الموقع الرسمي</div>
+                        <div class="download-description">النسخة الويب أو التحميل المباشر</div>
+                        <div class="text-xs mt-2 opacity-75">✅ آمن ومحدث</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${downloadLinks.windows ? `
+                    <div class="download-option" onclick="openRealDownload('${downloadLinks.windows}', 'ويندوز')" style="background: linear-gradient(135deg, #0078D4, #106ebe); color: white;">
+                        <div class="download-icon">🪟</div>
+                        <div class="download-title">Windows</div>
+                        <div class="download-description">تحميل لأجهزة الكمبيوتر</div>
+                        <div class="text-xs mt-2 opacity-75">✅ آمن ومحدث</div>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-shield-alt text-yellow-500 text-xl ml-3"></i>
+                        <div>
+                            <h3 class="font-bold text-yellow-800">ضمان الأمان</h3>
+                            <p class="text-yellow-700 text-sm">جميع الروابط تؤدي إلى المصادر الرسمية للتطبيقات لضمان سلامة جهازك وحماية بياناتك</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-6">
+                    <button class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-bold transition duration-300" onclick="closeModal()">
+                        <i class="fas fa-arrow-right ml-2"></i>
+                        العودة للخلف
+                    </button>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            showRevenueNotification(`🔗 تم فتح صفحة تحميل ${appName}`);
+        }
+
+        // Get Real Download Links Function
+        function getRealDownloadLinks(appName) {
+            const links = {
+                // Social Media Apps
+                'واتساب': {
+                    android: 'https://play.google.com/store/apps/details?id=com.whatsapp',
+                    ios: 'https://apps.apple.com/app/whatsapp-messenger/id310633997',
+                    web: 'https://web.whatsapp.com'
+                },
+                'فيسبوك': {
+                    android: 'https://play.google.com/store/apps/details?id=com.facebook.katana',
+                    ios: 'https://apps.apple.com/app/facebook/id284882215',
+                    web: 'https://www.facebook.com'
+                },
+                'إنستغرام': {
+                    android: 'https://play.google.com/store/apps/details?id=com.instagram.android',
+                    ios: 'https://apps.apple.com/app/instagram/id389801252',
+                    web: 'https://www.instagram.com'
+                },
+                'تيك توك': {
+                    android: 'https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically',
+                    ios: 'https://apps.apple.com/app/tiktok/id835599320',
+                    web: 'https://www.tiktok.com'
+                },
+                'تيليجرام': {
+                    android: 'https://play.google.com/store/apps/details?id=org.telegram.messenger',
+                    ios: 'https://apps.apple.com/app/telegram-messenger/id686449807',
+                    web: 'https://web.telegram.org',
+                    windows: 'https://desktop.telegram.org'
+                },
+                
+                // Productivity Apps
+                'مايكروسوفت أوفيس': {
+                    android: 'https://play.google.com/store/apps/details?id=com.microsoft.office.officehubrow',
+                    ios: 'https://apps.apple.com/app/microsoft-office/id541164041',
+                    web: 'https://office.com',
+                    windows: 'https://www.microsoft.com/microsoft-365/download-office'
+                },
+                'جوجل درايف': {
+                    android: 'https://play.google.com/store/apps/details?id=com.google.android.apps.docs',
+                    ios: 'https://apps.apple.com/app/google-drive/id507874739',
+                    web: 'https://drive.google.com'
+                },
+                
+                // Photo & Video Apps
+                'أدوبي فوتوشوب': {
+                    android: 'https://play.google.com/store/apps/details?id=com.adobe.psmobile',
+                    ios: 'https://apps.apple.com/app/adobe-photoshop/id1457771281',
+                    web: 'https://www.adobe.com/products/photoshop.html',
+                    windows: 'https://www.adobe.com/products/photoshop.html'
+                },
+                'كانفا': {
+                    android: 'https://play.google.com/store/apps/details?id=com.canva.editor',
+                    ios: 'https://apps.apple.com/app/canva/id897446215',
+                    web: 'https://www.canva.com'
+                },
+                
+                // Music Apps
+                'سبوتيفاي': {
+                    android: 'https://play.google.com/store/apps/details?id=com.spotify.music',
+                    ios: 'https://apps.apple.com/app/spotify-music-and-podcasts/id324684580',
+                    web: 'https://open.spotify.com',
+                    windows: 'https://www.spotify.com/download'
+                },
+                
+                // Video Apps
+                'يوتيوب': {
+                    android: 'https://play.google.com/store/apps/details?id=com.google.android.youtube',
+                    ios: 'https://apps.apple.com/app/youtube-watch-listen-stream/id544007664',
+                    web: 'https://www.youtube.com'
+                },
+                'نتفليكس': {
+                    android: 'https://play.google.com/store/apps/details?id=com.netflix.mediaclient',
+                    ios: 'https://apps.apple.com/app/netflix/id363590051',
+                    web: 'https://www.netflix.com',
+                    windows: 'https://www.microsoft.com/store/apps/9wzdncrfj3tj'
+                },
+                
+                // Education Apps
+                'دولينجو': {
+                    android: 'https://play.google.com/store/apps/details?id=com.duolingo',
+                    ios: 'https://apps.apple.com/app/duolingo/id570060128',
+                    web: 'https://www.duolingo.com'
+                },
+                
+                // Games
+                'كول أوف ديوتي موبايل': {
+                    android: 'https://play.google.com/store/apps/details?id=com.activision.callofduty.shooter',
+                    ios: 'https://apps.apple.com/app/call-of-duty-mobile/id1287282214'
+                },
+                'بابجي موبايل': {
+                    android: 'https://play.google.com/store/apps/details?id=com.tencent.ig',
+                    ios: 'https://apps.apple.com/app/pubg-mobile/id1330123889'
+                },
+                'فري فاير': {
+                    android: 'https://play.google.com/store/apps/details?id=com.dts.freefireth',
+                    ios: 'https://apps.apple.com/app/garena-free-fire-rampage/id1300146617'
+                },
+                'ماين كرافت': {
+                    android: 'https://play.google.com/store/apps/details?id=com.mojang.minecraftpe',
+                    ios: 'https://apps.apple.com/app/minecraft/id479516143',
+                    windows: 'https://www.minecraft.net/download'
+                },
+                'جينشين إمباكت': {
+                    android: 'https://play.google.com/store/apps/details?id=com.miHoYo.GenshinImpact',
+                    ios: 'https://apps.apple.com/app/genshin-impact/id1517783697',
+                    web: 'https://genshin.hoyoverse.com'
+                },
+                'كاندي كراش ساجا': {
+                    android: 'https://play.google.com/store/apps/details?id=com.king.candycrushsaga',
+                    ios: 'https://apps.apple.com/app/candy-crush-saga/id553834731',
+                    web: 'https://king.com/game/candycrush'
+                },
+                'أسفلت 9': {
+                    android: 'https://play.google.com/store/apps/details?id=com.gameloft.android.ANMP.GloftA9HM',
+                    ios: 'https://apps.apple.com/app/asphalt-9-legends/id805603214',
+                    windows: 'https://www.microsoft.com/store/apps/9pbmttn6dmzc'
+                },
+                'فيفا موبايل': {
+                    android: 'https://play.google.com/store/apps/details?id=com.ea.gp.fifamobile',
+                    ios: 'https://apps.apple.com/app/ea-sports-fc-mobile-soccer/id1094930513'
+                },
+                'كلاش أوف كلانس': {
+                    android: 'https://play.google.com/store/apps/details?id=com.supercell.clashofclans',
+                    ios: 'https://apps.apple.com/app/clash-of-clans/id529479190'
+                },
+                'راجناروك إكس': {
+                    android: 'https://play.google.com/store/apps/details?id=com.gravity.romg',
+                    ios: 'https://apps.apple.com/app/ragnarok-x-next-generation/id1565212464'
+                },
+                'سيمز موبايل': {
+                    android: 'https://play.google.com/store/apps/details?id=com.ea.gp.simsmobile',
+                    ios: 'https://apps.apple.com/app/the-sims-mobile/id1292169616'
+                },
+                'صب واي سيرفرز': {
+                    android: 'https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf',
+                    ios: 'https://apps.apple.com/app/subway-surfers/id512939461'
+                }
+            };
+            
+            // Return links for the app, or default links if not found
+            return links[appName] || {
+                android: 'https://play.google.com/store',
+                ios: 'https://apps.apple.com',
+                web: 'https://www.google.com/search?q=' + encodeURIComponent(appName + ' download')
+            };
+        }
+
+        // Open Real Download Function
+        function openRealDownload(url, storeName) {
+            showNotification(`تم توجيهك إلى ${storeName} - تحميل آمن ومضمون`);
+            
+            // Open the real download link in a new tab
+            window.open(url, '_blank');
+            
+            // Close modal after a short delay
+            setTimeout(() => {
+                closeModal();
+            }, 1000);
+        }
+
+        // Download Functions
+        function downloadApp(appName) {
+            trackDownload(appName);
+            
+            // Find the app and show download page
+            const app = [...appsData, ...gamesData].find(item => item.name === appName);
+            if (app) {
+                showDownloadPage(appName);
+            }
+        }
+
+
+
+        // Software Download Function
+        function downloadSoftware(softwareName) {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            // Get official download links for software
+            const softwareLinks = getOfficialSoftwareLinks(softwareName);
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">💻</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">${softwareName}</h2>
+                    <p class="text-gray-600">الحصول على البرنامج من المصدر الرسمي</p>
+                </div>
+                
+                <div class="app-description">
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        سيتم توجيهك إلى الموقع الرسمي للحصول على ${softwareName} مع ضمان الأمان والجودة.
+                    </p>
+                    <div class="bg-blue-100 text-blue-800 p-4 rounded-lg mb-4">
+                        <i class="fas fa-info-circle ml-2"></i>
+                        <strong>معلومة مهمة:</strong> سيتم توجيهك للموقع الرسمي للبرنامج لضمان الحصول على النسخة الأصلية
+                    </div>
+                </div>
+                
+                <div class="download-options">
+                    <div class="download-option" onclick="openRealDownload('${softwareLinks.official}', 'الموقع الرسمي')">
+                        <div class="download-icon">🌐</div>
+                        <div class="download-title">الموقع الرسمي</div>
+                        <div class="download-description">تحميل آمن ومضمون</div>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function getOfficialSoftwareLinks(softwareName) {
+            const links = {
+                'Adobe Creative Cloud': { official: 'https://www.adobe.com/creativecloud.html' },
+                'Microsoft 365 Business': { official: 'https://www.microsoft.com/microsoft-365/business' },
+                'Canva Pro Team': { official: 'https://www.canva.com/pro/' },
+                'AutoCAD Professional': { official: 'https://www.autodesk.com/products/autocad/overview' },
+                'Visual Studio Pro': { official: 'https://visualstudio.microsoft.com/vs/professional/' },
+                '3ds Max Professional': { official: 'https://www.autodesk.com/products/3ds-max/overview' },
+                'Figma Professional': { official: 'https://www.figma.com/pricing/' },
+                'Slack Business+': { official: 'https://slack.com/pricing' }
+            };
+            
+            return links[softwareName] || { official: 'https://www.google.com/search?q=' + encodeURIComponent(softwareName + ' official website') };
+        }
+
+        // Service Purchase Function
+        function purchaseService(serviceName, price) {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">📞</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">طلب خدمة: ${serviceName}</h2>
+                    <p class="text-gray-600">تواصل معنا للحصول على عرض سعر مخصص</p>
+                </div>
+                
+                <div class="bg-blue-100 border-l-4 border-blue-500 p-4 rounded mb-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-info-circle text-blue-500 text-xl ml-3"></i>
+                        <div>
+                            <h3 class="font-bold text-blue-800">كيفية الحصول على الخدمة</h3>
+                            <p class="text-blue-700">تواصل معنا مباشرة للحصول على استشارة مجانية وعرض سعر مخصص</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-green-500 text-xl ml-3"></i>
+                                <div>
+                                    <h3 class="font-bold">اتصل بنا</h3>
+                                    <p class="text-gray-600">01044220799</p>
+                                </div>
+                            </div>
+                            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg" onclick="window.open('tel:01044220799')">
+                                اتصل الآن
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fab fa-whatsapp text-green-500 text-xl ml-3"></i>
+                                <div>
+                                    <h3 class="font-bold">واتساب</h3>
+                                    <p class="text-gray-600">01044220799</p>
+                                </div>
+                            </div>
+                            <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg" onclick="window.open('https://wa.me/201044220799?text=أريد الاستفسار عن خدمة ${encodeURIComponent(serviceName)}')">
+                                راسلنا
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-blue-500 text-xl ml-3"></i>
+                                <div>
+                                    <h3 class="font-bold">البريد الإلكتروني</h3>
+                                    <p class="text-gray-600">mo7666salah@gmail.com</p>
+                                </div>
+                            </div>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg" onclick="window.open('mailto:mo7666salah@gmail.com?subject=استفسار عن خدمة ${encodeURIComponent(serviceName)}')">
+                                راسلنا
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+                    <div class="flex items-center">
+                        <i class="fas fa-star text-yellow-500 text-xl ml-3"></i>
+                        <div>
+                            <h3 class="font-bold text-yellow-800">مميزات خدماتنا</h3>
+                            <ul class="text-yellow-700 text-sm mt-2 space-y-1">
+                                <li>• استشارة مجانية قبل البدء</li>
+                                <li>• أسعار تنافسية ومناسبة</li>
+                                <li>• جودة عالية وتسليم في الموعد</li>
+                                <li>• دعم فني مستمر</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="download-modal-btn" onclick="closeModal()">
+                    <i class="fas fa-times ml-2"></i>
+                    إغلاق
+                </button>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Admin Panel Functions
+        function showAddProductModal() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">➕</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">إضافة منتج جديد</h2>
+                    <p class="text-gray-600">أضف تطبيق أو لعبة أو برنامج جديد</p>
+                </div>
+                
+                <form class="space-y-4" onsubmit="addNewProduct(event)">
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">اسم المنتج</label>
+                        <input type="text" class="w-full p-3 border border-gray-300 rounded-lg" required placeholder="اسم التطبيق أو البرنامج">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">نوع المنتج</label>
+                        <select class="w-full p-3 border border-gray-300 rounded-lg" required>
+                            <option value="">اختر النوع</option>
+                            <option value="app">تطبيق</option>
+                            <option value="game">لعبة</option>
+                            <option value="software">برنامج</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">التصنيف</label>
+                        <select class="w-full p-3 border border-gray-300 rounded-lg" required>
+                            <option value="">اختر التصنيف</option>
+                            <option value="social">شبكات اجتماعية</option>
+                            <option value="productivity">إنتاجية</option>
+                            <option value="photo">تصوير</option>
+                            <option value="music">موسيقى</option>
+                            <option value="action">أكشن</option>
+                            <option value="puzzle">ألغاز</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">الوصف</label>
+                        <textarea class="w-full p-3 border border-gray-300 rounded-lg h-24" required placeholder="وصف المنتج..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="download-modal-btn">
+                        <i class="fas fa-plus ml-2"></i>
+                        إضافة المنتج
+                    </button>
+                </form>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function addNewProduct(event) {
+            event.preventDefault();
+            closeModal();
+            
+            showRevenueNotification('تم إضافة المنتج الجديد بنجاح!');
+            
+            // Update product counts
+            const totalApps = document.getElementById('total-apps');
+            const currentCount = parseInt(totalApps.textContent.replace(',', ''));
+            totalApps.textContent = (currentCount + 1).toLocaleString();
+            
+            // Add admin revenue
+            const revenue = 10.00;
+            currentRevenue += revenue;
+            updateRevenueDisplay();
+        }
+
+        function showEditMode() {
+            showRevenueNotification('تم تفعيل وضع التحرير - يمكنك الآن تعديل المنتجات');
+        }
+
+        function exportData() {
+            showRevenueNotification('جاري تصدير البيانات...');
+            
+            setTimeout(() => {
+                const data = {
+                    totalRevenue: currentRevenue,
+                    totalDownloads: totalDownloads,
+                    adViews: adViews,
+                    apkDownloads: apkDownloads
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'appzoz_data.json';
+                link.click();
+                
+                showRevenueNotification('تم تصدير البيانات بنجاح!');
+            }, 2000);
+        }
+
+        function showAnalytics() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">📊</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">تحليلات مفصلة</h2>
+                    <p class="text-gray-600">إحصائيات شاملة للموقع</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-green-100 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-green-600">$${currentRevenue.toFixed(2)}</div>
+                        <div class="text-sm text-gray-600">إجمالي الأرباح</div>
+                    </div>
+                    <div class="bg-blue-100 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-blue-600">${totalDownloads.toLocaleString()}</div>
+                        <div class="text-sm text-gray-600">إجمالي التحميلات</div>
+                    </div>
+                    <div class="bg-purple-100 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-purple-600">${adViews.toLocaleString()}</div>
+                        <div class="text-sm text-gray-600">مشاهدات الإعلانات</div>
+                    </div>
+                    <div class="bg-orange-100 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-orange-600">${apkDownloads.toLocaleString()}</div>
+                        <div class="text-sm text-gray-600">تحميلات APK</div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <h3 class="font-bold mb-2">مصادر الأرباح:</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>مشاهدة الإعلانات ($0.25/مشاهدة):</span>
+                            <span class="font-bold">$${(adViews * 0.25).toFixed(2)}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>التحميلات العادية ($0.15/تحميل):</span>
+                            <span class="font-bold">$${(totalDownloads * 0.15).toFixed(2)}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>تحميلات APK ($0.35/تحميل):</span>
+                            <span class="font-bold">$${(apkDownloads * 0.35).toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="download-modal-btn mt-4" onclick="closeModal()">
+                    <i class="fas fa-times ml-2"></i>
+                    إغلاق
+                </button>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Search and Filter Functions
+        function searchApps() {
+            const searchTerm = document.getElementById('app-search').value.toLowerCase();
+            const filteredApps = appsData.filter(app => 
+                app.name.toLowerCase().includes(searchTerm) ||
+                app.description.toLowerCase().includes(searchTerm) ||
+                app.developer.toLowerCase().includes(searchTerm)
+            );
+            
+            displayFilteredApps(filteredApps);
+            
+            if (searchTerm) {
+                showRevenueNotification(`🔍 تم العثور على ${filteredApps.length} تطبيق يطابق "${searchTerm}"`);
+            }
+        }
+
+        function searchGames() {
+            const searchTerm = document.getElementById('game-search').value.toLowerCase();
+            const filteredGames = gamesData.filter(game => 
+                game.name.toLowerCase().includes(searchTerm) ||
+                game.description.toLowerCase().includes(searchTerm) ||
+                game.developer.toLowerCase().includes(searchTerm)
+            );
+            
+            displayFilteredGames(filteredGames);
+            
+            if (searchTerm) {
+                showRevenueNotification(`🔍 تم العثور على ${filteredGames.length} لعبة تطابق "${searchTerm}"`);
+            }
+        }
+
+        function filterByPlatform(platform) {
+            const buttons = document.querySelectorAll('#apps .category-filter');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const filteredApps = platform === 'all' ? appsData : 
+                appsData.filter(app => app.platforms.includes(platform));
+            
+            displayFilteredApps(filteredApps);
+            
+            const platformNames = {
+                'all': 'جميع المنصات',
+                'android': 'أندرويد',
+                'ios': 'آيفون',
+                'windows': 'ويندوز',
+                'mac': 'ماك',
+                'web': 'ويب'
+            };
+            
+            showRevenueNotification(`📱 تم تطبيق فلتر ${platformNames[platform]} - ${filteredApps.length} تطبيق متاح`);
+        }
+
+        function filterByCategory(category) {
+            const buttons = document.querySelectorAll('#apps .category-filter');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const filteredApps = category === 'all' ? appsData : 
+                appsData.filter(app => app.category === category);
+            
+            displayFilteredApps(filteredApps);
+            
+            const categoryNames = {
+                'all': 'جميع التصنيفات',
+                'social': 'شبكات اجتماعية',
+                'productivity': 'إنتاجية',
+                'photo': 'تصوير وتحرير',
+                'music': 'موسيقى',
+                'video': 'فيديو',
+                'education': 'تعليم',
+                'business': 'أعمال',
+                'health': 'صحة',
+                'travel': 'سفر',
+                'shopping': 'تسوق',
+                'finance': 'مالية'
+            };
+            
+            showRevenueNotification(`🏷️ تم تطبيق فلتر ${categoryNames[category]} - ${filteredApps.length} تطبيق متاح`);
+        }
+
+        function filterGamesByPlatform(platform) {
+            const buttons = document.querySelectorAll('#games .category-filter');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const filteredGames = platform === 'all' ? gamesData : 
+                gamesData.filter(game => game.platforms.includes(platform));
+            
+            displayFilteredGames(filteredGames);
+            
+            const platformNames = {
+                'all': 'جميع المنصات',
+                'android': 'أندرويد',
+                'ios': 'آيفون',
+                'windows': 'ويندوز',
+                'mac': 'ماك',
+                'web': 'ويب'
+            };
+            
+            showRevenueNotification(`🎮 تم تطبيق فلتر ${platformNames[platform]} - ${filteredGames.length} لعبة متاحة`);
+        }
+
+        function filterGamesByCategory(category) {
+            const buttons = document.querySelectorAll('#games .category-filter');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const filteredGames = category === 'all' ? gamesData : 
+                gamesData.filter(game => game.category === category);
+            
+            displayFilteredGames(filteredGames);
+            
+            const categoryNames = {
+                'all': 'جميع الأنواع',
+                'action': 'أكشن',
+                'adventure': 'مغامرات',
+                'puzzle': 'ألغاز',
+                'racing': 'سباق',
+                'sports': 'رياضة',
+                'strategy': 'استراتيجية',
+                'rpg': 'RPG',
+                'simulation': 'محاكاة',
+                'arcade': 'أركيد',
+                'casual': 'عادية',
+                'multiplayer': 'متعددة اللاعبين'
+            };
+            
+            showRevenueNotification(`🎯 تم تطبيق فلتر ${categoryNames[category]} - ${filteredGames.length} لعبة متاحة`);
+        }
+
+        function displayFilteredApps(apps) {
+            const appsGrid = document.getElementById('apps-grid');
+            appsGrid.innerHTML = '';
+            
+            apps.slice(0, 12).forEach(app => {
+                const appCard = createAppCard(app);
+                appsGrid.appendChild(appCard);
+            });
+        }
+
+        function displayFilteredGames(games) {
+            const gamesGrid = document.getElementById('games-grid');
+            gamesGrid.innerHTML = '';
+            
+            games.slice(0, 12).forEach(game => {
+                const gameCard = createAppCard(game);
+                gamesGrid.appendChild(gameCard);
+            });
+        }
+
+        function loadMoreApps() {
+            showRevenueNotification('⏳ جاري تحميل المزيد من التطبيقات...');
+            
+            // Show loading animation
+            const loadBtn = document.getElementById('load-more-apps');
+            const originalText = loadBtn.innerHTML;
+            loadBtn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i>جاري التحميل...';
+            loadBtn.disabled = true;
+            
+            // Simulate loading more apps
+            setTimeout(() => {
+                // Generate more apps dynamically
+                const moreApps = generateMoreApps(12);
+                const appsGrid = document.getElementById('apps-grid');
+                
+                moreApps.forEach(app => {
+                    const appCard = createAppCard(app);
+                    appCard.style.opacity = '0';
+                    appCard.style.transform = 'translateY(20px)';
+                    appsGrid.appendChild(appCard);
+                    
+                    // Animate in
+                    setTimeout(() => {
+                        appCard.style.transition = 'all 0.5s ease';
+                        appCard.style.opacity = '1';
+                        appCard.style.transform = 'translateY(0)';
+                    }, 100);
+                });
+                
+                loadBtn.innerHTML = originalText;
+                loadBtn.disabled = false;
+                showRevenueNotification('✅ تم تحميل 12 تطبيق إضافي بنجاح!');
+            }, 1500);
+        }
+
+        function loadMoreGames() {
+            showRevenueNotification('⏳ جاري تحميل المزيد من الألعاب...');
+            
+            // Show loading animation
+            const loadBtn = document.getElementById('load-more-games');
+            const originalText = loadBtn.innerHTML;
+            loadBtn.innerHTML = '<i class="fas fa-spinner fa-spin ml-2"></i>جاري التحميل...';
+            loadBtn.disabled = true;
+            
+            // Simulate loading more games
+            setTimeout(() => {
+                // Generate more games dynamically
+                const moreGames = generateMoreGames(12);
+                const gamesGrid = document.getElementById('games-grid');
+                
+                moreGames.forEach(game => {
+                    const gameCard = createAppCard(game);
+                    gameCard.style.opacity = '0';
+                    gameCard.style.transform = 'translateY(20px)';
+                    gamesGrid.appendChild(gameCard);
+                    
+                    // Animate in
+                    setTimeout(() => {
+                        gameCard.style.transition = 'all 0.5s ease';
+                        gameCard.style.opacity = '1';
+                        gameCard.style.transform = 'translateY(0)';
+                    }, 100);
+                });
+                
+                loadBtn.innerHTML = originalText;
+                loadBtn.disabled = false;
+                showRevenueNotification('✅ تم تحميل 12 لعبة إضافية بنجاح!');
+            }, 1500);
+        }
+
+        // Helper function to get app emoji fallback
+        function getAppEmoji(appName) {
+            const emojiMap = {
+                'واتساب': '💬',
+                'فيسبوك': '📘',
+                'إنستغرام': '📷',
+                'تيك توك': '🎵',
+                'تيليجرام': '✈️',
+                'مايكروسوفت أوفيس': '📄',
+                'جوجل درايف': '☁️',
+                'أدوبي فوتوشوب': '🎨',
+                'كانفا': '🎨',
+                'سبوتيفاي': '🎵',
+                'يوتيوب': '📺',
+                'نتفليكس': '🎬',
+                'دولينجو': '🦉',
+                'كول أوف ديوتي موبايل': '🔫',
+                'بابجي موبايل': '🎮',
+                'فري فاير': '🔥',
+                'ماين كرافت': '⛏️',
+                'جينشين إمباكت': '⚔️',
+                'كاندي كراش ساجا': '🍭',
+                'أسفلت 9': '🏎️',
+                'فيفا موبايل': '⚽',
+                'كلاش أوف كلانس': '🏰',
+                'راجناروك إكس': '🗡️',
+                'سيمز موبايل': '🏠',
+                'صب واي سيرفرز': '🚇'
+            };
+            return emojiMap[appName] || '📱';
+        }
+
+        // Helper functions to generate more content
+        function generateMoreApps(count) {
+            const moreApps = [];
+            const appNames = ['واتساب بيزنس', 'تيليجرام X', 'سناب شات', 'لينكد إن', 'تويتر', 'ديسكورد', 'زووم', 'سكايب', 'فايبر', 'وي تشات', 'كيك', 'سيجنال'];
+            const categories = ['social', 'productivity', 'photo', 'music'];
+            const platforms = [['android', 'ios'], ['android', 'ios', 'web'], ['windows', 'mac']];
+            
+            for (let i = 0; i < count; i++) {
+                moreApps.push({
+                    name: appNames[i % appNames.length] + ` ${Math.floor(Math.random() * 100)}`,
+                    category: categories[Math.floor(Math.random() * categories.length)],
+                    platforms: platforms[Math.floor(Math.random() * platforms.length)],
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    downloads: `${Math.floor(Math.random() * 500)}M+`,
+                    icon: ['📱', '💬', '📸', '🎵', '📺', '🎮'][Math.floor(Math.random() * 6)],
+                    description: 'تطبيق رائع ومفيد للغاية مع ميزات متقدمة',
+                    features: ['ميزة رائعة 1', 'ميزة مفيدة 2', 'ميزة متقدمة 3'],
+                    size: `${Math.floor(Math.random() * 200 + 50)} MB`,
+                    version: `${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 10)}`,
+                    developer: 'مطور محترف'
+                });
+            }
+            return moreApps;
+        }
+
+        function generateMoreGames(count) {
+            const moreGames = [];
+            const gameNames = ['كلاش رويال', 'بوكيمون جو', 'كاندي كراش', 'أنجري بيردز', 'تيمبل رن', 'فروت نينجا', 'بلانتس زومبيز', 'كت ذا روب'];
+            const categories = ['action', 'puzzle', 'adventure', 'racing'];
+            const platforms = [['android', 'ios'], ['android', 'ios', 'web'], ['windows', 'mac']];
+            
+            for (let i = 0; i < count; i++) {
+                moreGames.push({
+                    name: gameNames[i % gameNames.length] + ` ${Math.floor(Math.random() * 100)}`,
+                    category: categories[Math.floor(Math.random() * categories.length)],
+                    platforms: platforms[Math.floor(Math.random() * platforms.length)],
+                    rating: (Math.random() * 2 + 3).toFixed(1),
+                    downloads: `${Math.floor(Math.random() * 500)}M+`,
+                    icon: ['🎮', '🕹️', '🎯', '🏎️', '⚔️', '🧩'][Math.floor(Math.random() * 6)],
+                    description: 'لعبة ممتعة ومسلية مع تحديات شيقة',
+                    features: ['لعب ممتع', 'تحديات شيقة', 'جرافيك رائع'],
+                    size: `${Math.floor(Math.random() * 1000 + 100)} MB`,
+                    version: `${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 10)}.${Math.floor(Math.random() * 10)}`,
+                    developer: 'استوديو ألعاب'
+                });
+            }
+            return moreGames;
+        }
+
+        // Designer Panel Functions
+        let isDesignerLoggedIn = false;
+        const designerPassword = "Mosalah122003"; // كلمة مرور لوحة التحكم - للمصمم فقط
+
+        function showDesignerLogin() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">🔐</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">تسجيل دخول المصمم</h2>
+                    <p class="text-gray-600">أدخل كلمة المرور للوصول إلى لوحة التحكم</p>
+                </div>
+                
+                <form class="space-y-4" onsubmit="verifyDesignerLogin(event)">
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">كلمة المرور</label>
+                        <input type="password" id="designer-password" class="w-full p-3 border border-gray-300 rounded-lg" required placeholder="أدخل كلمة المرور">
+                    </div>
+                    
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded">
+                        <div class="flex items-center">
+                            <i class="fas fa-lock text-red-500 text-xl ml-3"></i>
+                            <div>
+                                <h3 class="font-bold text-red-800">وصول محدود</h3>
+                                <p class="text-red-700 text-sm">هذه اللوحة مخصصة حصرياً لمصمم الموقع فقط. الوصول غير المصرح به ممنوع.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="download-modal-btn">
+                        <i class="fas fa-sign-in-alt ml-2"></i>
+                        دخول لوحة التحكم
+                    </button>
+                </form>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function verifyDesignerLogin(event) {
+            event.preventDefault();
+            const enteredPassword = document.getElementById('designer-password').value;
+            
+            if (enteredPassword === designerPassword) {
+                isDesignerLoggedIn = true;
+                closeModal();
+                showDesignerPanel();
+                showNotification('🎉 أهلاً وسهلاً بك، مصمم الموقع الرئيسي!');
+                
+                // إخفاء زر لوحة التحكم من الشريط العلوي بعد تسجيل الدخول
+                const controlBtn = document.querySelector('button[onclick="showDesignerLogin()"]');
+                if (controlBtn) {
+                    controlBtn.style.display = 'none';
+                }
+            } else {
+                showNotification('❌ كلمة المرور غير صحيحة - الوصول مرفوض للمستخدمين غير المصرح لهم');
+                document.getElementById('designer-password').style.borderColor = '#ef4444';
+                document.getElementById('designer-password').style.backgroundColor = '#fef2f2';
+                
+                // إضافة تحذير أمني
+                setTimeout(() => {
+                    showNotification('⚠️ تحذير أمني: محاولة وصول غير مصرح بها');
+                }, 1000);
+            }
+        }
+
+        function showDesignerPanel() {
+            if (!isDesignerLoggedIn) {
+                showNotification('⚠️ يجب تسجيل الدخول أولاً للوصول إلى لوحة التحكم');
+                showDesignerLogin();
+                return;
+            }
+            
+            document.getElementById('designer-panel').style.display = 'block';
+            document.getElementById('designer-panel').scrollIntoView({ behavior: 'smooth' });
+            updateDashboardStats();
+            
+            // إضافة رسالة ترحيب خاصة
+            setTimeout(() => {
+                showNotification('👑 مرحباً بك في لوحة التحكم الحصرية - وصول كامل مُفعل');
+            }, 500);
+        }
+
+        function hideDesignerPanel() {
+            document.getElementById('designer-panel').style.display = 'none';
+            isDesignerLoggedIn = false;
+            
+            // إظهار زر لوحة التحكم مرة أخرى للوصول المستقبلي
+            const controlBtn = document.querySelector('button[onclick="showDesignerLogin()"]');
+            if (controlBtn) {
+                controlBtn.style.display = 'block';
+            }
+            
+            showNotification('✅ تم إخفاء لوحة التحكم وتسجيل الخروج الآمن');
+            
+            // التمرير إلى أعلى الصفحة
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateDashboardStats() {
+            // Update real-time stats
+            const stats = {
+                totalApps: Math.floor(Math.random() * 1000) + 10000,
+                totalUsers: Math.floor(Math.random() * 10000) + 100000,
+                dailyVisits: Math.floor(Math.random() * 1000) + 5000
+            };
+            
+            document.getElementById('total-apps').textContent = stats.totalApps.toLocaleString();
+            document.getElementById('total-users').textContent = stats.totalUsers.toLocaleString();
+            document.getElementById('daily-visits').textContent = stats.dailyVisits.toLocaleString();
+        }
+
+        // Designer Panel Modal Functions
+        function showAddContentModal() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">➕</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">إضافة محتوى جديد</h2>
+                    <p class="text-gray-600">أضف تطبيق أو لعبة جديدة للموقع</p>
+                </div>
+                
+                <form class="space-y-4" onsubmit="addNewContent(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">اسم التطبيق/اللعبة</label>
+                            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg" required placeholder="مثال: واتساب">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">نوع المحتوى</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg" required>
+                                <option value="">اختر النوع</option>
+                                <option value="app">تطبيق</option>
+                                <option value="game">لعبة</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">التصنيف</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg" required>
+                                <option value="">اختر التصنيف</option>
+                                <option value="social">شبكات اجتماعية</option>
+                                <option value="productivity">إنتاجية</option>
+                                <option value="photo">تصوير</option>
+                                <option value="music">موسيقى</option>
+                                <option value="action">أكشن</option>
+                                <option value="puzzle">ألغاز</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">التقييم</label>
+                            <input type="number" min="1" max="5" step="0.1" class="w-full p-3 border border-gray-300 rounded-lg" required placeholder="4.5">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">الوصف</label>
+                        <textarea class="w-full p-3 border border-gray-300 rounded-lg h-24" required placeholder="وصف مختصر للتطبيق..."></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">رابط الأيقونة</label>
+                        <input type="url" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="https://example.com/icon.png">
+                    </div>
+                    
+                    <button type="submit" class="download-modal-btn">
+                        <i class="fas fa-plus ml-2"></i>
+                        إضافة المحتوى
+                    </button>
+                </form>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function addNewContent(event) {
+            event.preventDefault();
+            closeModal();
+            showNotification('✅ تم إضافة المحتوى الجديد بنجاح!');
+            updateDashboardStats();
+        }
+
+        function showSiteAnalytics() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">📈</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">إحصائيات الموقع المفصلة</h2>
+                    <p class="text-gray-600">تحليلات شاملة لأداء الموقع</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-blue-100 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-blue-600">10,247</div>
+                        <div class="text-sm text-gray-600">إجمالي التطبيقات</div>
+                    </div>
+                    <div class="bg-green-100 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-green-600">125,890</div>
+                        <div class="text-sm text-gray-600">المستخدمون</div>
+                    </div>
+                    <div class="bg-purple-100 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-purple-600">2.5M</div>
+                        <div class="text-sm text-gray-600">التحميلات</div>
+                    </div>
+                    <div class="bg-orange-100 p-4 rounded-lg text-center">
+                        <div class="text-2xl font-bold text-orange-600">4.8</div>
+                        <div class="text-sm text-gray-600">متوسط التقييم</div>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-bold mb-2">أكثر التطبيقات تحميلاً:</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span>واتساب</span>
+                                <span class="font-bold text-green-600">45,230 تحميل</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>فيسبوك</span>
+                                <span class="font-bold text-blue-600">38,920 تحميل</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>إنستغرام</span>
+                                <span class="font-bold text-purple-600">32,150 تحميل</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-bold mb-2">إحصائيات الزوار:</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <div class="text-lg font-bold">5,247</div>
+                                <div class="text-sm text-gray-600">زوار اليوم</div>
+                            </div>
+                            <div>
+                                <div class="text-lg font-bold">38,920</div>
+                                <div class="text-sm text-gray-600">زوار الشهر</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="download-modal-btn mt-4" onclick="closeModal()">
+                    <i class="fas fa-times ml-2"></i>
+                    إغلاق
+                </button>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function showUserManagement() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">👥</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">إدارة المستخدمين</h2>
+                    <p class="text-gray-600">قائمة المستخدمين النشطين</p>
+                </div>
+                
+                <div class="space-y-4 max-h-96 overflow-y-auto">
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold ml-3">
+                                    أ
+                                </div>
+                                <div>
+                                    <div class="font-bold">أحمد محمد</div>
+                                    <div class="text-sm text-gray-600">ahmed@example.com</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm text-green-600 font-bold">نشط</div>
+                                <div class="text-xs text-gray-500">آخر زيارة: منذ 5 دقائق</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-bold ml-3">
+                                    س
+                                </div>
+                                <div>
+                                    <div class="font-bold">سارة أحمد</div>
+                                    <div class="text-sm text-gray-600">sara@example.com</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm text-green-600 font-bold">نشط</div>
+                                <div class="text-xs text-gray-500">آخر زيارة: منذ 12 دقيقة</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold ml-3">
+                                    م
+                                </div>
+                                <div>
+                                    <div class="font-bold">محمد علي</div>
+                                    <div class="text-sm text-gray-600">mohamed@example.com</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm text-gray-600">غير متصل</div>
+                                <div class="text-xs text-gray-500">آخر زيارة: منذ ساعة</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <div class="text-sm text-gray-600 mb-4">إجمالي المستخدمين المسجلين: 125,890</div>
+                    <button class="download-modal-btn" onclick="closeModal()">
+                        <i class="fas fa-times ml-2"></i>
+                        إغلاق
+                    </button>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function showSiteSettings() {
+            const modal = document.getElementById('appModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.innerHTML = `
+                <div class="text-center mb-6">
+                    <div class="text-6xl mb-4">⚙️</div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">إعدادات الموقع</h2>
+                    <p class="text-gray-600">تخصيص إعدادات الموقع العامة</p>
+                </div>
+                
+                <form class="space-y-4" onsubmit="updateSiteSettings(event)">
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">اسم الموقع</label>
+                        <input type="text" value="APPZOZ" class="w-full p-3 border border-gray-300 rounded-lg">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 font-bold mb-2">وصف الموقع</label>
+                        <textarea class="w-full p-3 border border-gray-300 rounded-lg h-24">منصة APPZOZ الرسمية للتطبيقات والألعاب المعتمدة</textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">البريد الإلكتروني</label>
+                            <input type="email" value="mo7666salah@gmail.com" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-bold mb-2">رقم الهاتف</label>
+                            <input type="tel" value="01044220799" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" checked class="ml-2">
+                            <span>تفعيل الإشعارات</span>
+                        </label>
+                        
+                        <label class="flex items-center">
+                            <input type="checkbox" checked class="ml-2">
+                            <span>السماح بالتعليقات</span>
+                        </label>
+                        
+                        <label class="flex items-center">
+                            <input type="checkbox" checked class="ml-2">
+                            <span>تفعيل وضع الصيانة</span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="download-modal-btn">
+                        <i class="fas fa-save ml-2"></i>
+                        حفظ الإعدادات
+                    </button>
+                </form>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        function updateSiteSettings(event) {
+            event.preventDefault();
+            closeModal();
+            showNotification('✅ تم حفظ إعدادات الموقع بنجاح!');
+        }
+
+        function showContentModeration() {
+            showNotification('🛡️ تم فتح لوحة مراجعة المحتوى');
+        }
+
+        function showBackupRestore() {
+            showNotification('💾 تم فتح أدوات النسخ الاحتياطي');
+        }
+
+        function showSEOTools() {
+            showNotification('🔍 تم فتح أدوات تحسين محركات البحث');
+        }
+
+        function showSecurityPanel() {
+            showNotification('🔒 تم فتح لوحة الأمان والحماية');
+        }
+
+        function exportSiteData() {
+            showNotification('📊 جاري تصدير بيانات الموقع...');
+            
+            setTimeout(() => {
+                const data = {
+                    siteName: 'APPZOZ',
+                    siteDescription: 'منصة APPZOZ الرسمية للتطبيقات والألعاب المعتمدة',
+                    licenseNumber: 'SA-2024-APPZOZ-001',
+                    totalApps: 10247,
+                    totalUsers: 125890,
+                    totalDownloads: 2500000,
+                    exportDate: new Date().toISOString()
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'appzoz_site_data.json';
+                link.click();
+                
+                showNotification('✅ تم تصدير بيانات الموقع بنجاح!');
+            }, 2000);
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('appModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96dd39a7218cee9d',t:'MTc1NDk3Mjg5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
